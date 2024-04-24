@@ -18,12 +18,34 @@ button {
     cursor: pointer;
 }
 
+@mixin textShadow($top: 2px 2px 2px, $right: -2px -2px 2px, $bottom: 2px -2px 2px, $left: -2px 2px 2px, $color: black) {
+    text-shadow:
+        $top $color,
+        $right $color,
+        $bottom $color,
+        $left $color;
+}
+
+@mixin size($w: null, $h: null, $max-w: null, $max-h: null, $min-w: null, $min-h: null) {
+    width: $w;
+    hight: $h;
+    max-width: $max-w;
+    max-hight: $max-h;
+    min-width: $min-w;
+    min-hight: $min-h;
+}
+
 @mixin dflex($fd: null, $jc: null, $ai: null, $g: null) {
     display: flex;
     flex-direction: $fd;
     justify-content: $jc;
     align-items: $ai;
     gap: $g;
+}
+
+@mixin bStyle($width: null, $style: solid, $color: black, $radius: 8px) {
+    border: $width $style $color;
+    border-radius: $radius;
 }
 
 

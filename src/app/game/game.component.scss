@@ -1,0 +1,61 @@
+@import './../../styles';
+
+.game-screen {
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    @include dflex($jc: center, $ai: center);
+
+}
+
+.field {
+    position: relative;
+    width: 90vw;
+    height: 90vh;
+    background-color: rgba(42, 0, 0, 0.85);
+    @include bStyle();
+    @include dflex($jc: center, $ai: center);
+}
+
+.card-stack {
+    position: relative;
+
+    img {
+        position: absolute;
+        transform: translate(50%, 50%);
+        width: 140px;
+    }
+
+    .top-card {
+        transform: rotate(-10deg);
+        /* Ausgangsdrehung */
+        transform-origin: center;
+        /* Drehpunkt */
+        transition: all 225ms ease-in-out;
+        /* Einheitlicher Übergang */
+        right: -40px;
+        bottom: -70px;
+
+        &:hover {
+            cursor: pointer;
+            transform: rotate(-20deg) scale(1.1);
+            /* Kombinierte Transformation */
+            right: -20px;
+            /* Angepasste Position */
+        }
+    }
+}
+
+@media(max-width:1150px) {
+
+    .card-stack {
+        img {
+            width: 80px;
+        }
+
+        .top-card {
+            right: -10px;
+            bottom: -30px;
+        }
+    }
+}
