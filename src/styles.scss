@@ -48,6 +48,9 @@ button {
     border-radius: $radius;
 }
 
+.p-none {
+    pointer-events: none;
+}
 
 @font-face {
     font-display: swap;
