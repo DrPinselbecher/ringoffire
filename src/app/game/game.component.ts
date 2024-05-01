@@ -10,7 +10,10 @@ import { Game } from '../../models/game';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent {
-  pickCardAnimation = false;
+  pickCardAnimation: boolean = false;
+  currentCard: string | undefined = '';
+  currentRotation: number = 0;
+
   game: Game;
 
   constructor() {
@@ -19,11 +22,35 @@ export class GameComponent {
   }
 
   takeCard() {
-    this.pickCardAnimation = true;
+    if (!this.pickCardAnimation && this.game.stack.length > 0) {
+      this.pickCardAnimation = true;
+      this.currentCard = this.game.stack.pop();
+      this.currentRotation = Math.random() * 360;
+
+      setTimeout(() => {
+        if (this.currentCard) {
+          this.setPlayedCard(this.currentCard, this.currentRotation);
+        }
+      }, 1200);
+    }
+  }
+
+  setPlayedCard(card: string, rotation: number) {
+    this.game.playedCards.push({ name: card, rotation: rotation });
+    console.log(this.game.playedCards);
+    this.pickCardAnimation = false;
+  }
+
+  setRandomDegNumber(): number {
+    return Math.floor(Math.random() * 180);
   }
 
   newGame() {
     this.game = new Game();
     console.log(this.game);
+  }
+
+  getTransformStyle(): string {
+    return `scale(1) translateX(220px) translateY(-20px) rotate(${this.currentRotation}deg)`;
   }
 }
