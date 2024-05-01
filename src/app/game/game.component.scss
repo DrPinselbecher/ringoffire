@@ -19,33 +19,50 @@
 
 .card-stack {
     position: relative;
+    width: 6%;
+    height: 30%;
 
     img {
         position: absolute;
-        transform: translate(50%, 50%);
         width: 140px;
     }
+}
 
-    .top-card {
-        transform: rotate(-10deg);
-        transform-origin: center;
-        transition: all 125ms ease-in-out;
-        right: -40px;
-        bottom: -70px;
+.top-card {
+    right: 40px;
+    bottom: 35px;
+    transform: rotate(-10deg);
+    transition: all 125ms ease-in-out;
 
-        &:hover {
-            cursor: pointer;
-            transform: rotate(-20deg) scale(1.1) !important;
-            right: -20px;
-        }
+    &:hover {
+        cursor: pointer;
+        transform: rotate(-20deg) scale(1.1) !important;
     }
 }
 
 .pick-card {
-    transition: all 300ms ease-in-out !important;
-    scale: 1.3 !important;
-    right: 20px !important;
-    bottom: -65px !important;
+    right: 40px;
+    bottom: 35px;
+    animation: pick-card-animation 1.20s ease-in-out;
+    transform: scale(1.2) translateX(220px) translateY(-20px) rotate(20deg);
+}
+
+@keyframes pick-card-animation {
+    0% {
+        transform: scale(1);
+    }
+
+    40% {
+        transform: scale(1.6);
+    }
+
+    60% {
+        transform: scale(1.6);
+    }
+
+    100% {
+        transform: scale(1.2) translateX(220px) translateY(-20px) rotate(20deg);
+    }
 }
 
 @media(max-width:1150px) {
@@ -53,11 +70,6 @@
     .card-stack {
         img {
             width: 80px;
-        }
-
-        .top-card {
-            right: -10px;
-            bottom: -30px;
         }
     }
 }
