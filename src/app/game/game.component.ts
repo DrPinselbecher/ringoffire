@@ -31,7 +31,7 @@ export class GameComponent {
         if (this.currentCard) {
           this.setPlayedCard(this.currentCard, this.currentRotation);
         }
-      }, 1200);
+      }, 1000);
     }
   }
 
@@ -51,6 +51,6 @@ export class GameComponent {
   }
 
   getTransformStyle(): string {
-    return `scale(1) translateX(220px) translateY(-20px) rotate(${this.currentRotation}deg)`;
+    return `scale(1) translateX(284px) translateY(-11px) rotate(${this.currentRotation}deg)`;
   }
 }
