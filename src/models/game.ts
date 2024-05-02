@@ -21,7 +21,7 @@ export class Game {
     }
 
     setPlayerProfileImages() {
-        for (let i = 1; i < 9; i++) {
+        for (let i = 1; i < 10; i++) {
             this.playerProfileImages.push('player_profile_' + i);
         }
         shuffle(this.playerProfileImages);

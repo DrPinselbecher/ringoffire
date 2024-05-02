@@ -12,9 +12,4 @@ import { Game } from '../../models/game';
 export class PlayerComponent {
   @Input() game!: Game;
 
-  setImgToPlayer() {
-    let image = this.game.playerProfileImages.pop();
-    console.log(image);
-    return image;
-  }
 }

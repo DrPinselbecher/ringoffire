@@ -38,7 +38,6 @@ export class GameComponent {
 
   setPlayedCard(card: string, rotation: number) {
     this.game.playedCards.push({ name: card, rotation: rotation });
-    console.log(this.game.playedCards);
     this.pickCardAnimation = false;
   }
 
@@ -60,6 +59,7 @@ export class GameComponent {
 
     if (image !== undefined) {
       this.game.players.push({ name: 'HANSI FRANZI JIPII', image: image });
+      console.log(image);
     }
   }
 }

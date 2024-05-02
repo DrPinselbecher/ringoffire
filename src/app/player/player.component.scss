@@ -2,7 +2,7 @@
 
 .player-box {
     margin-top: 20px;
-    @include dflex($fw: wrap, $jc: center, $cg: 50px, $rg: 20px);
+    @include dflex($fw: wrap, $jc: center, $cg: 15px, $rg: 11px);
 }
 
 .player {
