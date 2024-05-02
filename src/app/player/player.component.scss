@@ -1,18 +1,21 @@
 @import './../../styles';
 
 .player-box {
+    margin-top: 20px;
     @include dflex($fw: wrap, $jc: center, $cg: 50px, $rg: 20px);
 }
 
 .player {
+    box-sizing: border-box;
     text-wrap: nowrap;
-    @include fStyle($fs: 24px, $color: white);
+    @include fStyle($fs: 20px, $color: white);
     @include dflex($jc: space-between, $ai: center, $g: 10px);
     @include bStyle();
+    padding: 0 20px;
 
     >img {
         object-fit: cover;
-        @include size($w: 90px, $h: 90px);
+        @include size($w: 80px, $h: 80px);
         @include bStyle($color: transparent, $radius: 50%);
     }
 }

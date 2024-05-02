@@ -54,4 +54,12 @@ export class GameComponent {
   getTransformStyle(): string {
     return `scale(1) translateX(284px) translateY(-11px) rotate(${this.currentRotation}deg)`;
   }
+
+  setPlayer() {
+    let image = this.game.playerProfileImages.pop();
+
+    if (image !== undefined) {
+      this.game.players.push({ name: 'HANSI FRANZI JIPII', image: image });
+    }
+  }
 }

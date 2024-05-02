@@ -3,7 +3,6 @@
 .game-screen {
     @include size($w: 100vw, $h: 100vh, $max-w: 100%);
     @include dflex($jc: center, $ai: center);
-
 }
 
 .field {
@@ -11,7 +10,6 @@
     background-color: rgba(42, 0, 0, 0.85);
     @include size($w: 90vw, $h: 90vh);
     @include bStyle();
-
 }
 
 .card-stack {

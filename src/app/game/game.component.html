@@ -1,6 +1,6 @@
 <div class="game-screen">
     <div class="field">
-        <app-player></app-player>
+        <app-player [game]="game"></app-player>
         <div class="card-stack">
             <img *ngFor="let c of [0,1,2,3,4]; let i = index;" [ngStyle]="{'right.px': i * 5,'bottom.px': i * 5}"
                 src="assets/img/cards/card_cover.png" alt="card_stack_image_{{i}}">
@@ -11,5 +11,7 @@
             <img *ngIf="pickCardAnimation" [ngStyle]="{'transform': getTransformStyle()}" class="pick-card"
                 src="assets/img/cards/{{ currentCard }}.png">
         </div>
+        <button (click)="setPlayer()" style="border: 2px solid white; width: 100px; height: 30px; color: white;">CLICK
+            ME</button>
     </div>
 </div>

@@ -1,5 +1,5 @@
 export class Game {
-    public players: string[] = [];
+    public players: { name: string, image: string }[] = [];
     public playerProfileImages: string[] = [];
     public stack: string[] = [];
     public playedCards: { name: string, rotation: number }[] = [];
@@ -22,7 +22,7 @@ export class Game {
 
     setPlayerProfileImages() {
         for (let i = 1; i < 9; i++) {
-            this.playerProfileImages.push('player_profile_image_' + i);
+            this.playerProfileImages.push('player_profile_' + i);
         }
         shuffle(this.playerProfileImages);
     }

@@ -1,38 +1,8 @@
 <div class="player-box">
+    @for(player of game.players; track player.name){
     <div class="player">
-        <img src="assets/img/player_profiles/player_profile_1.jpg" alt="">
-        <span>Hans Wurst der</span>
+        <img src="assets/img/player_profiles/{{ player.image }}.jpg" alt="">
+        <span>{{ player.name }}</span>
     </div>
-    <div class="player">
-        <img src="assets/img/player_profiles/player_profile_2.jpg" alt="">
-        <span>Hans Wurst der</span>
-    </div>
-    <div class="player">
-        <img src="assets/img/player_profiles/player_profile_3.jpg" alt="">
-        <span>Hans Wurst der</span>
-    </div>
-    <div class="player">
-        <img src="assets/img/player_profiles/player_profile_4.jpg" alt="">
-        <span>Hans Wurst der</span>
-    </div>
-    <div class="player">
-        <img src="assets/img/player_profiles/player_profile_5.jpg" alt="">
-        <span>Hans Wurst der</span>
-    </div>
-    <div class="player">
-        <img src="assets/img/player_profiles/player_profile_6.jpg" alt="">
-        <span>Hans Wurst der</span>
-    </div>
-    <div class="player">
-        <img src="assets/img/player_profiles/player_profile_7.jpg" alt="">
-        <span>Hans Wurst der</span>
-    </div>
-    <div class="player">
-        <img src="assets/img/player_profiles/player_profile_8.jpg" alt="">
-        <span>Hans Wurst der</span>
-    </div>
-    <div class="player">
-        <img src="assets/img/player_profiles/player_profile_9.jpg" alt="">
-        <span>Hans Wurst der</span>
-    </div>
+    }
 </div>
