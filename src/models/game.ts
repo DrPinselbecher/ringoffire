@@ -1,10 +1,16 @@
 export class Game {
     public players: string[] = [];
+    public playerProfileImages: string[] = [];
     public stack: string[] = [];
     public playedCards: { name: string, rotation: number }[] = [];
     public currentPlayer: number = 0;
 
     constructor() {
+        this.setCards();
+        this.setPlayerProfileImages();
+    }
+
+    setCards() {
         for (let i = 1; i < 14; i++) {
             this.stack.push('ace_' + i);
             this.stack.push('clubs_' + i);
@@ -12,6 +18,13 @@ export class Game {
             this.stack.push('hearts_' + i);
         }
         shuffle(this.stack);
+    }
+
+    setPlayerProfileImages() {
+        for (let i = 1; i < 9; i++) {
+            this.playerProfileImages.push('player_profile_image_' + i);
+        }
+        shuffle(this.playerProfileImages);
     }
 }
 

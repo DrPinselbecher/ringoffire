@@ -28,24 +28,32 @@ button {
 
 @mixin size($w: null, $h: null, $max-w: null, $max-h: null, $min-w: null, $min-h: null) {
     width: $w;
-    hight: $h;
+    height: $h;
     max-width: $max-w;
-    max-hight: $max-h;
+    max-height: $max-h;
     min-width: $min-w;
-    min-hight: $min-h;
+    min-height: $min-h;
 }
 
-@mixin dflex($fd: null, $jc: null, $ai: null, $g: null) {
+@mixin dflex($fd: null, $jc: null, $ai: null, $fw: null, $g: null, $cg: null, $rg: null) {
     display: flex;
     flex-direction: $fd;
     justify-content: $jc;
     align-items: $ai;
+    flex-wrap: $fw;
     gap: $g;
+    column-gap: $cg;
+    row-gap: $rg;
 }
 
 @mixin bStyle($width: null, $style: solid, $color: black, $radius: 8px) {
     border: $width $style $color;
     border-radius: $radius;
+}
+
+@mixin fStyle($fs: null, $color: null) {
+    font-size: $fs;
+    color: $color;
 }
 
 .p-none {
