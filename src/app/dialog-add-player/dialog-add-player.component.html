@@ -1,12 +1,17 @@
 <h2 mat-dialog-title>Add new player</h2>
 <mat-dialog-content>
-    <p>How is your nickname?</p>
+    <div style="display: flex; gap: 14px">
+        <p>How is your nickname?</p>
+        <span style="font-size: 24px; font-weight: 900;"
+            [ngClass]="{'letterCountGreen':maxLettersToWriteName > 7,'letterCountOrange':maxLettersToWriteName <= 7,'letterCountRed':maxLettersToWriteName < 5,}">{{
+            maxLettersToWriteName }}</span>
+    </div>
     <mat-form-field>
         <mat-label>Nickname</mat-label>
-        <input matInput [(ngModel)]="name">
+        <input maxlength="14" matInput [(ngModel)]="name" (keydown.enter)="closeDialog()" (input)="onInput($event)">
     </mat-form-field>
 </mat-dialog-content>
-<mat-dialog-actions>
+<mat-dialog-actions style="justify-content: space-between !important;">
     <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button [mat-dialog-close]="" cdkFocusInitial>Ok</button>
+    <button mat-button [mat-dialog-close]="name" cdkFocusInitial>Ok</button>
 </mat-dialog-actions>

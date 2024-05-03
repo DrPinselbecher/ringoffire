@@ -29,7 +29,7 @@ export class GameComponent {
   }
 
   takeCard() {
-    if (!this.pickCardAnimation && this.game.stack.length > 0) {
+    if (!this.pickCardAnimation && this.game.stack.length > 0 && this.game.players.length >= 2) {
       this.pickCardAnimation = true;
       this.currentCard = this.game.stack.pop();
       this.currentRotation = Math.random() * 360;
@@ -60,20 +60,21 @@ export class GameComponent {
     return `scale(1) translateX(284px) translateY(-11px) rotate(${this.currentRotation}deg)`;
   }
 
-  setPlayer() {
+  setPlayer(name: string) {
     let image = this.game.playerProfileImages.pop();
 
     if (image !== undefined) {
-      this.game.players.push({ name: 'HANSI FRANZI JIPII', image: image });
-      console.log(image);
+      this.game.players.push({ name: name, image: image });
     }
   }
 
   openDialog(): void {
     let dialogRef = this.dialog.open(DialogAddPlayerComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe((name) => {
+      if (name) {
+        this.setPlayer(name);
+      }
     });
   }
 }
