@@ -4,6 +4,12 @@
     font-family: 'Big Shoulders Stencil Text';
 }
 
+html {
+    --mdc-filled-text-field-caret-color: #00ddff !important;
+    --mdc-filled-text-field-focus-active-indicator-color: #00ddff !important;
+    --mdc-filled-text-field-focus-label-text-color: #00ddff !important;
+}
+
 body {
     background-color: rgba(0, 0, 0, 0.7);
 }
