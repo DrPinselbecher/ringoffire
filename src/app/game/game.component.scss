@@ -63,6 +63,16 @@
     100% {}
 }
 
+.addPlayerBtn {
+    position: absolute;
+    right: 40px;
+    top: 50%;
+    width: 64px;
+    height: 64px;
+    background-color: rgb(129, 129, 129);
+    @include dflex($jc: center, $ai: center);
+}
+
 // @media(max-width:1150px) {
 // 
 //     .card-stack {

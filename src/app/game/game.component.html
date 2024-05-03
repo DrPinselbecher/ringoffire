@@ -11,10 +11,8 @@
             <img *ngIf="pickCardAnimation" [ngStyle]="{'transform': getTransformStyle()}" class="pick-card"
                 src="assets/img/cards/{{ currentCard }}.png">
         </div>
-        <button (click)="setPlayer()" style="border: 2px solid white; width: 100px; height: 30px; color: white;">CLICK
-            ME</button>
+        <button (click)="openDialog()" mat-fab color="primary" class="addPlayerBtn">
+            <mat-icon style="color:black;">add</mat-icon>
+        </button>
     </div>
-    <button mat-fab color="primary" aria-label="Beispiel-Icon-Button mit Löschsymbol">
-        <mat-icon>delete</mat-icon>
-    </button>
 </div>
