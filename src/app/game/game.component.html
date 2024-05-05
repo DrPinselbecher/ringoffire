@@ -2,14 +2,19 @@
     <div class="field">
         <app-player [game]="game"></app-player>
         <div class="card-stack">
-            <img *ngFor="let c of [0,1,2,3,4]; let i = index;" [ngStyle]="{'right.px': i * 5,'bottom.px': i * 5}"
+            <img *ngFor="let c of showCardStack(); let i = index;" [ngStyle]="{'right.px': i * 5,'bottom.px': i * 5}"
                 src="assets/img/cards/card_cover.png" alt="card_stack_image_{{i}}">
-            <img (click)="takeCard()" class="top-card" src="assets/img/cards/card_cover.png" alt="top_card_image">
+
+            <img *ngIf="isCardStackEmpty()" (click)="takeCard()" class="top-card" src="assets/img/cards/card_cover.png"
+                alt="top_card_image">
+
             <img *ngFor="let card of game.playedCards" class="played-card"
                 [ngStyle]="{'transform': 'scale(1) translateX(284px) translateY(-11px) rotate(' + card.rotation + 'deg)'}"
                 src="assets/img/cards/{{ card.name }}.png" alt="card image">
+
             <img *ngIf="pickCardAnimation" [ngStyle]="{'transform': getTransformStyle()}" class="pick-card"
                 src="assets/img/cards/{{ currentCard }}.png">
+
         </div>
         <button (click)="openDialog()" mat-fab color="primary" class="addPlayerBtn">
             <mat-icon style="color:black;">add</mat-icon>

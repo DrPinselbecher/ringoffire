@@ -6,6 +6,7 @@
 }
 
 .player {
+    position: relative;
     box-sizing: border-box;
     text-wrap: nowrap;
     @include fStyle($fs: 20px, $color: white);
@@ -20,7 +21,7 @@
     }
 }
 
-@keyframes pulse {
+@keyframes pulse-active-player {
     0% {
         background-color: rgba(103, 255, 250, 0.1);
         color: rgb(255, 255, 255);
@@ -38,5 +39,41 @@
 }
 
 .player-active {
-    animation: pulse 2s infinite ease-in-out;
+    animation: pulse-active-player 1.7s infinite ease-in-out;
+}
+
+@keyframes pulse-next-player {
+    0% {
+        color: rgb(255, 225, 0);
+    }
+
+    50% {
+        color: rgb(255, 0, 0);
+    }
+
+    100% {
+        color: rgb(255, 225, 0);
+    }
+}
+
+.player-next-title {
+    z-index: 9;
+    position: absolute;
+    right: -30px;
+    top: 0;
+    rotate: 20deg;
+    font-size: 20px;
+    font-weight: 900;
+    animation: pulse-next-player 1.7s infinite ease-in-out;
+}
+
+.player-active-title {
+    z-index: 9;
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    top: -14px;
+    font-size: 24px;
+    font-weight: 900;
+    color: rgb(255, 0, 0);
 }

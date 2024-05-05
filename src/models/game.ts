@@ -4,6 +4,8 @@ export class Game {
     public stack: string[] = [];
     public playedCards: { name: string, rotation: number }[] = [];
     public currentPlayer: number = -1;
+    public nextPlayer: number = 0;
+    public language: string = 'en';
 
     constructor() {
         this.setCards();

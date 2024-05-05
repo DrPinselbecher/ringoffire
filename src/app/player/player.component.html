@@ -3,6 +3,10 @@
     <div [ngClass]="{'player-active': i === game.currentPlayer}" class="player">
         <img src="assets/img/player_profiles/{{ player.image }}.jpg" alt="">
         <span>{{ player.name }}</span>
+        <span class="player-next-title" *ngIf="i === (game.nextPlayer) && game.language ==='en'">PICK A
+            CARD</span>
+        <span class="player-next-title" *ngIf="i === (game.nextPlayer) && game.language ==='de'">Karte
+            ziehen</span>
     </div>
     }
 </div>

@@ -29,25 +29,44 @@ export class GameComponent {
   }
 
   takeCard() {
-    if (!this.pickCardAnimation && this.game.stack.length > 0 && this.game.players.length >= 2) {
-      this.pickCardAnimation = true;
-      this.currentCard = this.game.stack.pop();
-      this.currentRotation = Math.random() * 360;
+    if (this.cardIsClickable()) {
 
-      setTimeout(() => {
-        if (this.currentCard) {
-          this.setPlayedCard(this.currentCard, this.currentRotation);
-        }
-      }, 1000);
-
-      if (this.game.currentPlayer < this.game.players.length - 1) {
-        this.game.currentPlayer++;
-      } else {
-        this.game.currentPlayer = 0;
-      }
-    } else {
-
+      this.moveCardToTable();
+      this.showCurrentPlayer();
+      this.showNextPlayer();
     }
+  }
+
+  showCurrentPlayer() {
+    if (this.game.currentPlayer < this.game.players.length - 1) {
+      this.game.currentPlayer++;
+    } else {
+      this.game.currentPlayer = 0;
+    }
+  }
+
+  showNextPlayer() {
+    if (this.game.nextPlayer < this.game.players.length - 1) {
+      this.game.nextPlayer++;
+    } else {
+      this.game.nextPlayer = 0;
+    }
+  }
+
+  moveCardToTable() {
+    this.pickCardAnimation = true;
+    this.currentCard = this.game.stack.pop();
+    this.currentRotation = Math.random() * 360;
+
+    setTimeout(() => {
+      if (this.currentCard) {
+        this.setPlayedCard(this.currentCard, this.currentRotation);
+      }
+    }, 1000);
+  }
+
+  cardIsClickable() {
+    return !this.pickCardAnimation && this.game.stack.length > 0 && this.game.players.length >= 2;
   }
 
   setPlayedCard(card: string, rotation: number) {
@@ -70,9 +89,17 @@ export class GameComponent {
 
   setPlayer(name: string) {
     let image = this.game.playerProfileImages.pop();
-
     if (image !== undefined) {
       this.game.players.push({ name: name, image: image });
+      this.updateNextPlayerIfNeeded();
+    }
+  }
+
+  updateNextPlayerIfNeeded() {
+    if (this.game.currentPlayer === this.game.players.length - 1) {
+      this.game.nextPlayer = this.game.currentPlayer - 1;
+    } else {
+      this.game.nextPlayer = this.game.currentPlayer + 1;
     }
   }
 
@@ -86,5 +113,14 @@ export class GameComponent {
         this.setPlayer(name);
       }
     });
+  }
+
+  showCardStack(): number[] {
+    let numberOfCards = Math.min(5, this.game.stack.length - 1);
+    return Array.from({ length: numberOfCards }, (_, i) => i);
+  }
+
+  isCardStackEmpty() {
+    return this.game.stack.length !== (this.game.stack.length - this.game.stack.length);
   }
 }
