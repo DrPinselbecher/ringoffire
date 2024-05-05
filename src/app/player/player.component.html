@@ -1,6 +1,6 @@
 <div class="player-box">
-    @for(player of game.players; track player.name){
-    <div class="player">
+    @for(player of game.players; track player.name; let i = $index){
+    <div [ngClass]="{'player-active': i === game.currentPlayer}" class="player">
         <img src="assets/img/player_profiles/{{ player.image }}.jpg" alt="">
         <span>{{ player.name }}</span>
     </div>

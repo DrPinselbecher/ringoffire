@@ -39,6 +39,12 @@ export class GameComponent {
           this.setPlayedCard(this.currentCard, this.currentRotation);
         }
       }, 1000);
+
+      if (this.game.currentPlayer < this.game.players.length - 1) {
+        this.game.currentPlayer++;
+      } else {
+        this.game.currentPlayer = 0;
+      }
     } else {
 
     }

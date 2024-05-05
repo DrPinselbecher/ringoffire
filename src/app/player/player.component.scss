@@ -19,3 +19,24 @@
         @include bStyle($color: transparent, $radius: 50%);
     }
 }
+
+@keyframes pulse {
+    0% {
+        background-color: rgba(103, 255, 250, 0.1);
+        color: rgb(255, 255, 255);
+    }
+
+    50% {
+        background-color: rgba(217, 217, 217, 0.6);
+        color: rgb(0, 0, 0);
+    }
+
+    100% {
+        background-color: rgba(217, 217, 217, 0.1);
+        color: rgb(255, 255, 255);
+    }
+}
+
+.player-active {
+    animation: pulse 2s infinite ease-in-out;
+}

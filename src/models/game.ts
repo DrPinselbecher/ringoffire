@@ -3,7 +3,7 @@ export class Game {
     public playerProfileImages: string[] = [];
     public stack: string[] = [];
     public playedCards: { name: string, rotation: number }[] = [];
-    public currentPlayer: number = 0;
+    public currentPlayer: number = -1;
 
     constructor() {
         this.setCards();
