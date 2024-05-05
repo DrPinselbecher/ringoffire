@@ -1,3 +1,5 @@
+@import './../../styles';
+
 .letterCountGreen {
     color: green;
 }
@@ -8,4 +10,13 @@
 
 .letterCountRed {
     color: red;
+}
+
+.dialogTitleWithPlayerCount {
+    @include dflex($ai: center);
+    font-size: 20px;
+
+    >span {
+        margin: -7px 0 0 5px;
+    }
 }

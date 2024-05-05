@@ -1,4 +1,7 @@
-<h2 mat-dialog-title>Add new player</h2>
+<div class="dialogTitleWithPlayerCount">
+    <h2 mat-dialog-title>Add new player</h2>
+    <span style="color:#00ddff">{{ data.playersLength }}/9 </span>
+</div>
 <mat-dialog-content>
     <div style="display: flex; gap: 14px">
         <p>How is your nickname?</p>
@@ -13,5 +16,5 @@
 </mat-dialog-content>
 <mat-dialog-actions style="justify-content: space-between !important;">
     <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button [mat-dialog-close]="name" cdkFocusInitial>Ok</button>
+    <button mat-button [mat-dialog-close]="name" [disabled]="buttonDisableToSetName" cdkFocusInitial>Ok</button>
 </mat-dialog-actions>

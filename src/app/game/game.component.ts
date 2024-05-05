@@ -39,6 +39,8 @@ export class GameComponent {
           this.setPlayedCard(this.currentCard, this.currentRotation);
         }
       }, 1000);
+    } else {
+
     }
   }
 
@@ -69,7 +71,9 @@ export class GameComponent {
   }
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(DialogAddPlayerComponent);
+    let dialogRef = this.dialog.open(DialogAddPlayerComponent, {
+      data: { playersLength: this.game.players.length }
+    });
 
     dialogRef.afterClosed().subscribe((name) => {
       if (name) {

@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 
 @Component({
@@ -22,8 +22,14 @@ import { MatInputModule } from '@angular/material/input';
 export class DialogAddPlayerComponent {
   maxLettersToWriteName: number = 14;
   name: string = '';
+  addedPlayers: any;
+  buttonDisableToSetName: boolean = true;
 
-  constructor(private dialogRef: MatDialogRef<DialogAddPlayerComponent>) { }
+
+  constructor(
+    private dialogRef: MatDialogRef<DialogAddPlayerComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { playersLength: number }
+  ) { }
 
   closeDialog() {
     this.dialogRef.close(this.name);
@@ -36,5 +42,6 @@ export class DialogAddPlayerComponent {
   onInput(event: any) {
     let inputLength = event.target.value.length;
     this.maxLettersToWriteName = 14 - inputLength;
+    this.buttonDisableToSetName = inputLength === 0;
   }
 }
