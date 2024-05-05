@@ -24,12 +24,15 @@ export class DialogAddPlayerComponent {
   name: string = '';
   addedPlayers: any;
   buttonDisableToSetName: boolean = true;
+  playerLength: number;
 
 
   constructor(
     private dialogRef: MatDialogRef<DialogAddPlayerComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { playersLength: number }
-  ) { }
+  ) {
+    this.playerLength = data.playersLength;
+  }
 
   closeDialog() {
     this.dialogRef.close(this.name);
@@ -42,6 +45,6 @@ export class DialogAddPlayerComponent {
   onInput(event: any) {
     let inputLength = event.target.value.length;
     this.maxLettersToWriteName = 14 - inputLength;
-    this.buttonDisableToSetName = inputLength === 0;
+    this.buttonDisableToSetName = inputLength === 0 || this.playerLength === 9;
   }
 }
