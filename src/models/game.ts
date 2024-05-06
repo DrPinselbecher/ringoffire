@@ -1,12 +1,18 @@
 export class Game {
-    public players: { name: string, image: string }[] = [];
+    public players: { name: string, image: string }[] = [{
+        name: 'test',
+        image: ''
+    },
+    {
+        name: 'testTwo',
+        image: ''
+    }];
     public playerProfileImages: string[] = [];
     public stack: string[] = [];
     public playedCards: { name: string, rotation: number }[] = [];
     public currentPlayer: number = -1;
     public nextPlayer: number = 0;
-    public language: string = 'en';
-
+    public language: "en" | "de" = "de";
     constructor() {
         this.setCards();
         this.setPlayerProfileImages();

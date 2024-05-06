@@ -73,6 +73,14 @@
     @include dflex($jc: center, $ai: center);
 }
 
+.card-box {
+    position: absolute;
+    bottom: 20px;
+    width: 85%;
+    transform: translateX(10%);
+    text-align: center;
+}
+
 // @media(max-width:1150px) {
 // 
 //     .card-stack {
