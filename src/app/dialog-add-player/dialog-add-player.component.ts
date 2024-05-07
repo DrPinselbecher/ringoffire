@@ -49,8 +49,8 @@ export class DialogAddPlayerComponent {
     this.buttonDisableToSetName = inputLength === 0 || this.players.length === 9 || this.isNameExist(event.target.value);
   }
 
-  isNameExist(value: string): boolean {
-    return this.players.some(player => player.name.toLowerCase().trim() === value.toLowerCase().trim());
+  isNameExist(name: string): boolean {
+    return this.players.some(player => player.name.toLowerCase().trim() === name.toLowerCase().trim());
   }
 
   isPlayerExist(): boolean {

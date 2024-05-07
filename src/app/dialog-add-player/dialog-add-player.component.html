@@ -3,7 +3,7 @@
     <h2 *ngIf="data.language === 'de'" mat-dialog-title>Füge dich hinzu!</h2>
     <span style="color:#00ddff">{{ data.players.length }}/9 </span>
 </div>
-<mat-dialog-content>
+<mat-dialog-content style="display: flex; flex-direction: column;">
     <div style="display: flex; gap: 14px">
         <p *ngIf="data.language === 'en'">How is your nickname?</p>
         <p *ngIf="data.language === 'de'">Wie ist dein Spitzname?</p>
@@ -19,9 +19,15 @@
         <mat-label *ngIf="isPlayerExist() && data.language === 'de'">Spieler existiert!</mat-label>
         <mat-label *ngIf="!isPlayerExist() && data.language === 'en'">Nickname</mat-label>
         <mat-label *ngIf="!isPlayerExist() && data.language === 'de'">Spitzname</mat-label>
-        <input [disabled]="isPlayerExist()" maxlength="14" matInput [(ngModel)]="name" (keydown.enter)="closeDialog()"
-            (input)="onInput($event)">
+        <input [disabled]="isPlayerExist()" maxlength="14" matInput [(ngModel)]="name"
+            (keydown.enter)="isNameExist(name) ? '' : closeDialog()" (input)="onInput($event)">
     </mat-form-field>
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <span *ngIf="data.language === 'en' && isNameExist(name)" class="player-exist-message">This player already
+            exists!</span>
+        <span *ngIf="data.language === 'de' && isNameExist(name)" class="player-exist-message">Dieser Spieler existiert
+            bereits!</span>
+    </div>
 </mat-dialog-content>
 <mat-dialog-actions style="justify-content: space-between !important;">
     <button *ngIf="data.language === 'en'" mat-button (click)="onNoClick()">No Thanks</button>

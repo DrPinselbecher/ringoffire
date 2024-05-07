@@ -26,3 +26,8 @@ mat-dialog-actions {
         padding: 0 10px !important;
     }
 }
+
+.player-exist-message {
+    position: fixed;
+    @include fStyle($fs: 14px, $color: red, $fw: 900);
+}

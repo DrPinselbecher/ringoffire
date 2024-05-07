@@ -65,9 +65,10 @@ button {
     border-radius: $radius;
 }
 
-@mixin fStyle($fs: null, $color: null) {
+@mixin fStyle($fs: null, $color: null, $fw: null) {
     font-size: $fs;
     color: $color;
+    font-weight: $fw;
 }
 
 .box-shadow {

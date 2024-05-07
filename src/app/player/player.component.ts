@@ -16,4 +16,9 @@ export class PlayerComponent {
     let currentPlayerName = localStorage.getItem('playerName');
     return currentPlayerName ? JSON.parse(currentPlayerName) === playerName : false;
   }
+
+  deletePlayer(i: number) {
+    this.game.players.splice(i, 1);
+    localStorage.removeItem('playerName');
+  }
 }
