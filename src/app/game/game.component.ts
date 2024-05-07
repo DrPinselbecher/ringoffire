@@ -87,6 +87,7 @@ export class GameComponent {
   }
 
   newGame() {
+    this.clearLocalStorage();
     this.game = new Game();
     console.log(this.game);
   }
@@ -100,6 +101,17 @@ export class GameComponent {
     if (image !== undefined) {
       this.game.players.push({ name: name, image: image });
       this.updateNextPlayerIfNeeded();
+      this.savePlayerToLocalStorage(name);
+    }
+  }
+
+  savePlayerToLocalStorage(name: string) {
+    localStorage.setItem('playerName', JSON.stringify(name));
+  }
+
+  clearLocalStorage() {
+    if (localStorage.getItem('playerName')) {
+      localStorage.removeItem('playerName');
     }
   }
 
@@ -113,7 +125,10 @@ export class GameComponent {
 
   openDialog(): void {
     let dialogRef = this.dialog.open(DialogAddPlayerComponent, {
-      data: { playersLength: this.game.players.length }
+      data: {
+        playersLength: this.game.players.length,
+        language: this.game.language
+      }
     });
 
     dialogRef.afterClosed().subscribe((name) => {

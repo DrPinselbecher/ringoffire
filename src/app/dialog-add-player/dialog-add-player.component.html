@@ -1,20 +1,30 @@
 <div class="dialogTitleWithPlayerCount">
-    <h2 mat-dialog-title>Add new player</h2>
+    <h2 *ngIf="data.language === 'en'" mat-dialog-title>Add yourself</h2>
+    <h2 *ngIf="data.language === 'de'" mat-dialog-title>Füge dich hinzu!</h2>
     <span style="color:#00ddff">{{ data.playersLength }}/9 </span>
 </div>
 <mat-dialog-content>
     <div style="display: flex; gap: 14px">
-        <p>How is your nickname?</p>
-        <span style="font-size: 24px; font-weight: 900;"
-            [ngClass]="{'letterCountGreen':maxLettersToWriteName > 7,'letterCountOrange':maxLettersToWriteName <= 7,'letterCountRed':maxLettersToWriteName < 5,}">{{
-            maxLettersToWriteName }}</span>
+        <p *ngIf="data.language === 'en'">How is your nickname?</p>
+        <p *ngIf="data.language === 'de'">Wie ist dein Spitzname?</p>
+        <span style="font-size: 24px; font-weight: 900;" [ngClass]="{
+                'letterCountGreen': maxLettersToWriteName > 7,
+                'letterCountOrange': maxLettersToWriteName <= 7 && maxLettersToWriteName >= 5,
+                'letterCountRed': maxLettersToWriteName < 5
+            }">{{ maxLettersToWriteName }}</span>
     </div>
+
     <mat-form-field>
-        <mat-label>Nickname</mat-label>
-        <input maxlength="14" matInput [(ngModel)]="name" (keydown.enter)="closeDialog()" (input)="onInput($event)">
+        <mat-label *ngIf="isPlayerExist() && data.language === 'en'">Player exist!</mat-label>
+        <mat-label *ngIf="isPlayerExist() && data.language === 'de'">Spieler existiert!</mat-label>
+        <mat-label *ngIf="!isPlayerExist() && data.language === 'en'">Nickname</mat-label>
+        <mat-label *ngIf="!isPlayerExist() && data.language === 'de'">Spitzname</mat-label>
+        <input [disabled]="isPlayerExist()" maxlength="14" matInput [(ngModel)]="name" (keydown.enter)="closeDialog()"
+            (input)="onInput($event)">
     </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions style="justify-content: space-between !important;">
-    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button *ngIf="data.language === 'en'" mat-button (click)="onNoClick()">No Thanks</button>
+    <button *ngIf="data.language === 'de'" mat-button (click)="onNoClick()">Nein Danke</button>
     <button mat-button [mat-dialog-close]="name" [disabled]="buttonDisableToSetName">Ok</button>
 </mat-dialog-actions>

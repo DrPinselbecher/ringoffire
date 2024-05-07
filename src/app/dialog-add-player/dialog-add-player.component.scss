@@ -20,3 +20,9 @@
         margin: -7px 0 0 5px;
     }
 }
+
+mat-dialog-actions {
+    >button {
+        padding: 0 10px !important;
+    }
+}

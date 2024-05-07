@@ -12,4 +12,8 @@ import { Game } from '../../models/game';
 export class PlayerComponent {
   @Input() game!: Game;
 
+  isCurrentUser(playerName: string): boolean {
+    let currentPlayerName = localStorage.getItem('playerName');
+    return currentPlayerName ? JSON.parse(currentPlayerName) === playerName : false;
+  }
 }
