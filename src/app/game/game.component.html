@@ -16,7 +16,7 @@
                 src="assets/img/cards/{{ currentCard }}.png">
 
         </div>
-        <button (click)="openDialog()" mat-fab color="primary" class="addPlayerBtn">
+        <button (click)="openDialog()" mat-fab color="primary" class="addPlayerBtn box-shadow">
             <mat-icon style="color:black;">add</mat-icon>
         </button>
         <app-game-info *ngIf="currentCard" [card]="currentCard" [game]="game" class="info-box"></app-game-info>

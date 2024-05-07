@@ -1,10 +1,18 @@
 export class Game {
     public players: { name: string, image: string }[] = [{
-        name: 'test',
+        name: 'Seelenfuchs',
         image: ''
     },
     {
-        name: 'testTwo',
+        name: 'Pinsel',
+        image: ''
+    },
+    {
+        name: 'Lexy',
+        image: ''
+    },
+    {
+        name: 'Messefarm',
         image: ''
     }];
     public playerProfileImages: string[] = [];

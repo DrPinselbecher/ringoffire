@@ -1,6 +1,6 @@
 <div class="player-box">
     @for(player of game.players; track player.name; let i = $index){
-    <div [ngClass]="{'player-active': i === game.currentPlayer}" class="player">
+    <div [ngClass]="{'player-active': i === game.currentPlayer}" class="player box-shadow">
         <svg *ngIf="isCurrentUser(player.name)" class="delete-player-svg" width="24" height="24" viewBox="0 0 24 24"
             fill="none" xmlns="http://www.w3.org/2000/svg">
             <path

@@ -126,7 +126,7 @@ export class GameComponent {
   openDialog(): void {
     let dialogRef = this.dialog.open(DialogAddPlayerComponent, {
       data: {
-        playersLength: this.game.players.length,
+        players: this.game.players,
         language: this.game.language
       }
     });

@@ -17,22 +17,21 @@ import { MatInputModule } from '@angular/material/input';
     ReactiveFormsModule
   ],
   templateUrl: './dialog-add-player.component.html',
-  styleUrl: './dialog-add-player.component.scss'
+  styleUrls: ['./dialog-add-player.component.scss']
 })
 export class DialogAddPlayerComponent {
   maxLettersToWriteName: number = 14;
   name: string = '';
   addedPlayers: any;
   buttonDisableToSetName: boolean = true;
-  playerLength: number;
+  players: { name: string, image: string }[];
   language: string;
-
 
   constructor(
     private dialogRef: MatDialogRef<DialogAddPlayerComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { playersLength: number, language: string }
+    @Inject(MAT_DIALOG_DATA) public data: { players: { name: string, image: string }[], language: string }
   ) {
-    this.playerLength = data.playersLength;
+    this.players = data.players;
     this.language = data.language;
   }
 
@@ -47,7 +46,11 @@ export class DialogAddPlayerComponent {
   onInput(event: any) {
     let inputLength = event.target.value.length;
     this.maxLettersToWriteName = 14 - inputLength;
-    this.buttonDisableToSetName = inputLength === 0 || this.playerLength === 9;
+    this.buttonDisableToSetName = inputLength === 0 || this.players.length === 9 || this.isNameExist(event.target.value);
+  }
+
+  isNameExist(value: string): boolean {
+    return this.players.some(player => player.name.toLowerCase().trim() === value.toLowerCase().trim());
   }
 
   isPlayerExist(): boolean {

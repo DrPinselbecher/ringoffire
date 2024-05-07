@@ -8,6 +8,10 @@ html {
     --mdc-filled-text-field-caret-color: #00ddff !important;
     --mdc-filled-text-field-focus-active-indicator-color: #00ddff !important;
     --mdc-filled-text-field-focus-label-text-color: #00ddff !important;
+    height: auto;
+    max-height: 100%;
+    width: 100vw;
+    max-width: 100%;
 }
 
 body {
@@ -64,6 +68,12 @@ button {
 @mixin fStyle($fs: null, $color: null) {
     font-size: $fs;
     color: $color;
+}
+
+.box-shadow {
+    box-shadow:
+        0 10px 20px rgba(0, 0, 0, 0.5),
+        0 6px 6px rgba(0, 0, 0, 0.3);
 }
 
 .p-none {
