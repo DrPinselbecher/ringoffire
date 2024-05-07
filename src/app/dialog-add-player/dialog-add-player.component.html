@@ -1,7 +1,7 @@
 <div class="dialogTitleWithPlayerCount">
     <h2 *ngIf="data.language === 'en'" mat-dialog-title>Add yourself</h2>
     <h2 *ngIf="data.language === 'de'" mat-dialog-title>Füge dich hinzu!</h2>
-    <span style="color:#00ddff">{{ data.players.length }}/9 </span>
+    <span style="color:#00ddff">{{ data.players.length }}/{{ data.maxPlayers }} </span>
 </div>
 <mat-dialog-content style="display: flex; flex-direction: column;">
     <div style="display: flex; gap: 14px">
@@ -17,17 +17,30 @@
     <mat-form-field>
         <mat-label *ngIf="isPlayerExist() && data.language === 'en'">Player exist!</mat-label>
         <mat-label *ngIf="isPlayerExist() && data.language === 'de'">Spieler existiert!</mat-label>
-        <mat-label *ngIf="!isPlayerExist() && data.language === 'en'">Nickname</mat-label>
-        <mat-label *ngIf="!isPlayerExist() && data.language === 'de'">Spitzname</mat-label>
-        <input autocorrect="off" autocomplete="off" spellcheck="false" [disabled]="isPlayerExist()" maxlength="14"
-            matInput [(ngModel)]="name" (keydown.enter)="isNameExist(name) ? '' : closeDialog()"
-            (input)="onInput($event)">
+        <mat-label
+            *ngIf="!isPlayerExist() && data.language === 'en' && data.players.length !== data.maxPlayers">Nickname</mat-label>
+        <mat-label
+            *ngIf="!isPlayerExist() && data.language === 'de' && data.players.length !== data.maxPlayers">Spitzname</mat-label>
+        <mat-label *ngIf="data.players.length === data.maxPlayers && data.language === 'en'">Number of players
+            reached!</mat-label>
+        <mat-label *ngIf="data.players.length === data.maxPlayers && data.language === 'de'">Spieleranzahl
+            erreicht!</mat-label>
+        <input autocorrect="off" autocomplete="off" spellcheck="false"
+            [disabled]="isPlayerExist() || data.players.length === data.maxPlayers" maxlength="14" matInput
+            [(ngModel)]="name" (keydown.enter)="isNameExist(name) ? '' : closeDialog()" (input)="onInput($event)">
     </mat-form-field>
     <div style="display: flex; justify-content: center; align-items: center;">
         <span *ngIf="data.language === 'en' && isNameExist(name)" class="player-exist-message">This player already
             exists!</span>
         <span *ngIf="data.language === 'de' && isNameExist(name)" class="player-exist-message">Dieser Spieler existiert
             bereits!</span>
+        <span *ngIf="data.language === 'en' && data.players.length === data.maxPlayers"
+            class="player-exist-message">Maximum of players
+            reached!
+        </span>
+        <span *ngIf="data.language === 'de' && data.players.length === data.maxPlayers"
+            class="player-exist-message">Maximale Spieler
+            erreicht!</span>
     </div>
 </mat-dialog-content>
 <mat-dialog-actions style="justify-content: space-between !important;">

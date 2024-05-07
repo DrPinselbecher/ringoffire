@@ -1,26 +1,50 @@
 export class Game {
-    public players: { name: string, image: string }[] = [{
-        name: 'Seelenfuchs',
-        image: ''
-    },
-    {
-        name: 'Pinsel',
-        image: ''
-    },
-    {
-        name: 'Lexy',
-        image: ''
-    },
-    {
-        name: 'Messefarm',
-        image: ''
-    }];
+    public players: { name: string, image: string }[] = [
+        {
+            name: 'Seelenfuchs',
+            image: ''
+        },
+        {
+            name: 'Pinsel',
+            image: ''
+        },
+        {
+            name: 'Lexy',
+            image: ''
+        },
+        {
+            name: 'GinForTheWin',
+            image: ''
+        },
+        {
+            name: 'Krushnak',
+            image: ''
+        },
+        {
+            name: 'SoulSlice',
+            image: ''
+        },
+        {
+            name: 'Lorelay',
+            image: ''
+        },
+        {
+            name: 'Bibedoo',
+            image: ''
+        },
+        {
+            name: 'Messefarm',
+            image: ''
+        }];
     public playerProfileImages: string[] = [];
     public stack: string[] = [];
     public playedCards: { name: string, rotation: number }[] = [];
     public currentPlayer: number = -1;
     public nextPlayer: number = 0;
-    public language: "en" | "de" = "de";
+    public maximalPlayersAllowed: number = 9;
+    public language: "en" | "de" = "en";
+
+
     constructor() {
         this.setCards();
         this.setPlayerProfileImages();

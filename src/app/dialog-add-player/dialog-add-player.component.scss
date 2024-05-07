@@ -27,6 +27,10 @@ mat-dialog-actions {
     }
 }
 
+mat-label {
+    font-size: 15px;
+}
+
 .player-exist-message {
     position: fixed;
     @include fStyle($fs: 14px, $color: red, $fw: 900);

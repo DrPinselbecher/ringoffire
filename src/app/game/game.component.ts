@@ -127,7 +127,8 @@ export class GameComponent {
     let dialogRef = this.dialog.open(DialogAddPlayerComponent, {
       data: {
         players: this.game.players,
-        language: this.game.language
+        language: this.game.language,
+        maxPlayers: this.game.maximalPlayersAllowed
       }
     });
 
