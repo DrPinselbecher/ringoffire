@@ -1,1 +1,21 @@
 @import './../../styles';
+
+mat-card {
+    @include dflex($fd: column, $g: 20px);
+    padding: 30px 20px;
+    height: max-content;
+    color: rgb(0, 0, 0);
+
+    mat-card-title {
+        font-size: 32px;
+        font-weight: 900;
+    }
+
+    mat-card-content {
+        font-size: 28px;
+        font-style: italic;
+        font-weight: 600;
+        line-height: 28px;
+        padding: 0;
+    }
+}

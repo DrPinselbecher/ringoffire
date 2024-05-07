@@ -73,11 +73,11 @@
     @include dflex($jc: center, $ai: center);
 }
 
-.card-box {
+.info-box {
     position: absolute;
     bottom: 20px;
-    width: 85%;
-    transform: translateX(10%);
+    width: 75%;
+    transform: translateX(20%);
     text-align: center;
 }
 
