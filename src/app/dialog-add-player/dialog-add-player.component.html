@@ -19,8 +19,9 @@
         <mat-label *ngIf="isPlayerExist() && data.language === 'de'">Spieler existiert!</mat-label>
         <mat-label *ngIf="!isPlayerExist() && data.language === 'en'">Nickname</mat-label>
         <mat-label *ngIf="!isPlayerExist() && data.language === 'de'">Spitzname</mat-label>
-        <input [disabled]="isPlayerExist()" maxlength="14" matInput [(ngModel)]="name"
-            (keydown.enter)="isNameExist(name) ? '' : closeDialog()" (input)="onInput($event)">
+        <input autocorrect="off" autocomplete="off" spellcheck="false" [disabled]="isPlayerExist()" maxlength="14"
+            matInput [(ngModel)]="name" (keydown.enter)="isNameExist(name) ? '' : closeDialog()"
+            (input)="onInput($event)">
     </mat-form-field>
     <div style="display: flex; justify-content: center; align-items: center;">
         <span *ngIf="data.language === 'en' && isNameExist(name)" class="player-exist-message">This player already
