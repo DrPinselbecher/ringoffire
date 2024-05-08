@@ -9,7 +9,7 @@
     position: relative;
     box-sizing: border-box;
     text-wrap: nowrap;
-    @include fStyle($fs: 20px, $color: white);
+    @include fStyle($fs: 23px, $color: white);
     @include dflex($jc: space-between, $ai: center, $g: 10px);
     @include bStyle();
     padding: 0 20px;
@@ -62,7 +62,7 @@
     right: -30px;
     top: 0;
     rotate: 20deg;
-    font-size: 20px;
+    font-size: 23px;
     font-weight: 900;
     animation: pulse-next-player 1.7s infinite ease-in-out;
 }
@@ -73,7 +73,7 @@
     transform: translateX(-50%);
     left: 50%;
     top: -14px;
-    font-size: 24px;
+    font-size: 27px;
     font-weight: 900;
     color: rgb(255, 0, 0);
 }
@@ -104,7 +104,7 @@
     }
 
     .player {
-        @include fStyle($fs: 18px);
+        @include fStyle($fs: 21px);
         @include dflex($g: 0.8vw);
         padding: 0 1vw;
 
@@ -116,14 +116,14 @@
     .player-next-title {
         right: -1.2vw;
         top: 0;
-        font-size: 18px;
+        font-size: 21px;
     }
 }
 
 @media(max-width:1285px) {
 
     .player {
-        @include fStyle($fs: 18px);
+        @include fStyle($fs: 21px);
         @include dflex($g: 0.8vw);
         padding: 0 1vw;
 
@@ -135,14 +135,14 @@
     .player-next-title {
         right: -1.5vw;
         top: -0.4vw;
-        font-size: 14px;
+        font-size: 17px;
     }
 }
 
 @media(max-width:710px) {
 
     .player {
-        @include fStyle($fs: 14px);
+        @include fStyle($fs: 17px);
         @include dflex($g: 0.8vw);
         padding: 0 1vw;
 
@@ -154,13 +154,13 @@
     .player-next-title {
         right: -2vw;
         top: -1.2vw;
-        font-size: 12px;
+        font-size: 15px;
     }
 }
 
 @media(max-width:410px) {
     .player {
-        @include fStyle($fs: 10px);
+        @include fStyle($fs: 13px);
         @include dflex($g: 0.5vw);
 
         >img {
@@ -171,7 +171,7 @@
     .player-next-title {
         right: -3vw;
         top: -2.2vw;
-        font-size: 8px;
+        font-size: 11px;
     }
 
 }
