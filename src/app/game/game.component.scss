@@ -81,4 +81,119 @@
     text-align: center;
 }
 
-@media(max-width:1285px) {}
+@media(max-width:1285px) {
+
+    .card-stack {
+        right: 50vw;
+        bottom: 30vh;
+
+        img {
+            @include size($w: 120px);
+        }
+    }
+
+    .played-card {
+        right: 7.5vw;
+        bottom: 2vw;
+    }
+
+    .pick-card {
+        right: 7.5vw;
+        bottom: 2vw;
+    }
+
+    .info-box {
+        bottom: 20px;
+        width: 91%;
+        transform: translateX(5%);
+    }
+}
+
+@media(max-width:860px) {
+
+    .played-card {
+        right: 11.5vw;
+        bottom: 4vw;
+    }
+
+    .pick-card {
+        right: 11.5vw;
+        bottom: 4vw;
+    }
+
+    .addPlayerBtn {
+        right: 20px;
+        top: 60%;
+        width: 50px;
+        height: 50px;
+    }
+
+    .info-box {
+        bottom: 20px;
+        width: 98%;
+        transform: translateX(1%);
+    }
+}
+
+@media(max-width:710px) {
+
+    .field {
+        background-color: rgba(42, 0, 0, 0);
+        @include size($w: 100%, $h: 100%);
+        border: none;
+        border-radius: 0;
+    }
+
+    .card-stack {
+        right: 60vw;
+        bottom: 38vh;
+
+        img {
+            width: 90px;
+        }
+    }
+
+    .played-card {
+        right: 0;
+        left: -200px;
+        bottom: 14px;
+    }
+
+    @keyframes pick-card-animation-resp {
+        0% {
+            transform: scale(1);
+            left: -110px;
+        }
+
+        40% {
+            transform: scale(1.4);
+            left: -110px;
+        }
+
+        60% {
+            transform: scale(1.4);
+            left: -110px;
+        }
+
+        100% {}
+    }
+
+    .pick-card {
+        right: 0;
+        left: -200px;
+        bottom: 14px;
+        animation: pick-card-animation-resp 1s ease-in-out;
+    }
+
+    .addPlayerBtn {
+        right: 8px;
+        top: 59%;
+        width: 50px;
+        height: 50px;
+    }
+
+    .info-box {
+        width: 96%;
+        transform: translateX(2%);
+    }
+}

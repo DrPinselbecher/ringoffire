@@ -1,40 +1,40 @@
 export class Game {
     public players: { name: string, image: string }[] = [
         {
-            name: 'Seelenfuchs',
-            image: ''
+            name: 'SeelenfuchsXXX',
+            image: 'player_profile_1'
         },
         {
-            name: 'Pinsel',
-            image: ''
+            name: 'SeelenfuchsXXX',
+            image: 'player_profile_2'
         },
         {
-            name: 'Lexy',
-            image: ''
+            name: 'SeelenfuchsXXX',
+            image: 'player_profile_3'
         },
         {
-            name: 'GinForTheWin',
-            image: ''
+            name: 'SeelenfuchsXXX',
+            image: 'player_profile_4'
         },
         {
-            name: 'Krushnak',
-            image: ''
+            name: 'SeelenfuchsXXX',
+            image: 'player_profile_5'
         },
         {
-            name: 'SoulSlice',
-            image: ''
+            name: 'SeelenfuchsXXX',
+            image: 'player_profile_6'
         },
         {
-            name: 'Lorelay',
-            image: ''
+            name: 'SeelenfuchsXXX',
+            image: 'player_profile_7'
         },
         {
-            name: 'Bibedoo',
-            image: ''
+            name: 'SeelenfuchsXXX',
+            image: 'player_profile_8'
         },
         {
-            name: 'Messefarm',
-            image: ''
+            name: 'SeelenfuchsXXX',
+            image: 'player_profile_9'
         }];
     public playerProfileImages: string[] = [];
     public stack: string[] = [];

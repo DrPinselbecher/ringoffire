@@ -96,3 +96,54 @@
         border-color: rgb(140, 0, 0);
     }
 }
+
+@media(max-width:1660px) {
+
+    .player-box {
+        @include dflex($cg: 1vw, $rg: 1vw);
+    }
+
+    .player {
+        @include fStyle($fs: 18px);
+        @include dflex($g: 0.8vw);
+        padding: 0 1vw;
+
+        >img {
+            @include size($w: 4.5vw, $h: 4.5vw, $min-w: 45px, $min-h: 45px);
+        }
+    }
+
+    .player-next-title {
+        right: -1.2vw;
+        top: 0;
+        font-size: 18px;
+    }
+}
+
+@media(max-width:1285px) {
+
+    .player {
+        @include fStyle($fs: 18px);
+        @include dflex($g: 0.8vw);
+        padding: 0 1vw;
+
+        >img {
+            @include size($w: 4.5vw, $h: 4.5vw, $min-w: 45px, $min-h: 45px);
+        }
+    }
+
+    .player-next-title {
+        right: -1.5vw;
+        top: -0.4vw;
+        font-size: 14px;
+    }
+}
+
+@media(max-width:710px) {
+
+    .player-next-title {
+        right: -3vw;
+        top: -1.2vw;
+        font-size: 12px;
+    }
+}
