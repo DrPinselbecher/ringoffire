@@ -15,7 +15,7 @@
 .card-stack {
     position: absolute;
     right: 40vw;
-    bottom: 30vh;
+    top: 560px;
 
     img {
         position: absolute;
@@ -84,8 +84,8 @@
 @media(max-width:1285px) {
 
     .card-stack {
-        right: 50vw;
-        bottom: 30vh;
+        right: 47vw;
+        top: 520px;
 
         img {
             @include size($w: 120px);
@@ -145,8 +145,8 @@
     }
 
     .card-stack {
-        right: 60vw;
-        bottom: 38vh;
+        right: 58vw;
+        top: 457px;
 
         img {
             width: 90px;
@@ -155,7 +155,7 @@
 
     .played-card {
         right: 0;
-        left: -200px;
+        left: -230px;
         bottom: 14px;
     }
 
@@ -180,7 +180,7 @@
 
     .pick-card {
         right: 0;
-        left: -200px;
+        left: -230px;
         bottom: 14px;
         animation: pick-card-animation-resp 1s ease-in-out;
     }
@@ -190,6 +190,62 @@
         top: 59%;
         width: 50px;
         height: 50px;
+    }
+
+    .info-box {
+        width: 96%;
+        transform: translateX(2%);
+    }
+}
+
+@media(max-width:410px) {
+
+    .card-stack {
+        right: 57vw;
+        top: 450px;
+
+        img {
+            width: 60px;
+        }
+    }
+
+    .played-card {
+        right: 0;
+        left: -231px;
+        bottom: 10px;
+    }
+
+    @keyframes pick-card-animation-resp {
+        0% {
+            transform: scale(1);
+            left: -85px;
+        }
+
+        40% {
+            transform: scale(1.4);
+            left: -85px;
+        }
+
+        60% {
+            transform: scale(1.4);
+            left: -85px;
+        }
+
+        100% {}
+    }
+
+    .pick-card {
+        right: 0;
+        left: -231px;
+        bottom: 10px;
+        animation: pick-card-animation-resp 1s ease-in-out;
+    }
+
+    .addPlayerBtn {
+        right: 8px;
+        top: 70%;
+        width: 40px;
+        height: 40px;
     }
 
     .info-box {

@@ -50,4 +50,19 @@ mat-card {
     }
 }
 
-@media(max-width:705px) {}
+@media(max-width:705px) {
+
+    mat-card {
+        gap: 0;
+        padding: 10px 10px;
+
+        mat-card-title {
+            font-size: 18px;
+        }
+
+        mat-card-content {
+            font-size: 16px;
+            line-height: 18px;
+        }
+    }
+}
