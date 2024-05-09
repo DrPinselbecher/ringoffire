@@ -1,0 +1,12 @@
+@import './../../../styles';
+
+div {
+    width: 50vw;
+    height: 30vh;
+    @include bStyle($width: 4px, $style: dashed, $color: darkred);
+    @include dflex($jc: center, $ai: center);
+
+    span {
+        @include fStyle($fs: 3vw, $color: darkred, $fw: 900);
+    }
+}
