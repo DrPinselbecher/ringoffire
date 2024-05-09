@@ -58,5 +58,4 @@ export class GameInfoComponent {
       this.description = this.cardActions[this.game.language][cardNumber - 1].description;
     }
   }
-
 }

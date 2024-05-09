@@ -1,39 +1,39 @@
 export class Game {
     public players: { name: string, image: string }[] = [
         {
-            name: 'SeelenfuchsXXX',
+            name: 'GinForTheWin',
             image: 'player_profile_1'
         },
         {
-            name: 'SeelenfuchsXXX',
+            name: 'Messefarm',
             image: 'player_profile_2'
         },
         {
-            name: 'SeelenfuchsXXX',
+            name: 'Spider-Man',
             image: 'player_profile_3'
         },
         {
-            name: 'SeelenfuchsXXX',
+            name: 'Kuschel el Puschel',
             image: 'player_profile_4'
         },
         {
-            name: 'SeelenfuchsXXX',
+            name: 'DrPinselbecher',
             image: 'player_profile_5'
         },
         {
-            name: 'SeelenfuchsXXX',
+            name: 'Kruschnak',
             image: 'player_profile_6'
         },
         {
-            name: 'SeelenfuchsXXX',
+            name: 'Seelenfuchs',
             image: 'player_profile_7'
         },
         {
-            name: 'SeelenfuchsXXX',
+            name: 'DrBibber',
             image: 'player_profile_8'
         },
         {
-            name: 'SeelenfuchsXXX',
+            name: 'Elo Bi Mello',
             image: 'player_profile_9'
         }];
     public playerProfileImages: string[] = [];
@@ -53,9 +53,6 @@ export class Game {
     setCards() {
         for (let i = 1; i < 14; i++) {
             this.stack.push('ace_' + i);
-            this.stack.push('clubs_' + i);
-            this.stack.push('diamonds_' + i);
-            this.stack.push('hearts_' + i);
         }
         shuffle(this.stack);
     }

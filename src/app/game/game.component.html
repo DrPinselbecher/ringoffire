@@ -15,10 +15,18 @@
             <img *ngIf="pickCardAnimation" [ngStyle]="{'transform': getTransformStyle()}" class="pick-card"
                 src="assets/img/cards/{{ currentCard }}.png">
 
+            <button (click)="restartGame()" *ngIf="game.stack.length === 0" mat-fab color="primary"
+                class="restart-game-btn box-shadow">
+                <span>Restart?</span>
+            </button>
         </div>
-        <button (click)="openDialog()" mat-fab color="primary" class="addPlayerBtn box-shadow">
+        <button (click)="openDialog()" mat-fab color="primary" class="add-player-btn box-shadow">
             <mat-icon style="color:black;">add</mat-icon>
         </button>
+        <img (click)="switchLanguage('de')" class="language-image box-shadow" *ngIf="game.language === 'en'"
+            src="assets/img/languages/en_image.png" alt="en_language_flag_img">
+        <img (click)="switchLanguage('en')" class="language-image box-shadow" *ngIf="game.language === 'de'"
+            src="assets/img/languages/de_image.png" alt="de_language_flag_img">
         <app-game-info *ngIf="currentCard" [card]="currentCard" [game]="game" class="info-box"></app-game-info>
     </div>
 </div>

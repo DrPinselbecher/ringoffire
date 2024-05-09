@@ -147,4 +147,14 @@ export class GameComponent {
   isCardStackEmpty() {
     return this.game.stack.length !== (this.game.stack.length - this.game.stack.length);
   }
+
+  switchLanguage(language: "en" | "de") {
+    this.game.language = language;
+  }
+
+  restartGame() {
+    this.game.playedCards = [];
+    this.game.setCards();
+    this.currentCard = undefined;
+  }
 }
