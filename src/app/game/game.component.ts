@@ -157,4 +157,13 @@ export class GameComponent {
     this.game.setCards();
     this.currentCard = undefined;
   }
+
+  isSafariBrowserOnSmartphone() {
+    let userAgent = navigator.userAgent;
+
+    let isSafari = /safari/i.test(userAgent) && /version/i.test(userAgent) && !/chrome/i.test(userAgent);
+    let isMobile = /iPhone|iPod/i.test(userAgent);
+
+    return isSafari && isMobile;
+  }
 }

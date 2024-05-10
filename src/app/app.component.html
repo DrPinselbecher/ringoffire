@@ -1,5 +1,5 @@
-<div [ngClass]="{'d-none': isInLandscapeMode}" (dragstart)="onDragStart($event)">
+<div *ngIf="!isInLandscapeMode" (dragstart)="onDragStart($event)">
   <app-background></app-background>
   <router-outlet></router-outlet>
 </div>
-<app-landscape-massage [ngClass]="{'landscape-mode': isInLandscapeMode}"></app-landscape-massage>
+<app-landscape-massage *ngIf="isInLandscapeMode" class="landscape-mode"></app-landscape-massage>

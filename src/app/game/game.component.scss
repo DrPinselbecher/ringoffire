@@ -88,6 +88,10 @@
     text-align: center;
 }
 
+.safari-size {
+    bottom: 15vh !important;
+}
+
 .language-image {
     position: absolute;
     right: 40px;
@@ -124,9 +128,9 @@
         height: 50px;
     }
 
-    @media(max-width:410px) {
+    @media(max-width:430px) {
         right: 8px;
-        top: 75%;
+        top: 61vh;
         width: 40px;
         height: 40px;
     }
@@ -162,7 +166,7 @@
         height: 36px;
     }
 
-    @media(max-width:410px) {
+    @media(max-width:430px) {
         font-size: 10px;
         right: -13px;
         top: -84px;
@@ -285,14 +289,15 @@
     .info-box {
         width: 96%;
         transform: translateX(2%);
+        bottom: 8vh;
     }
 }
 
-@media(max-width:410px) {
+@media(max-width:430px) {
 
     .card-stack {
-        right: 57vw;
-        top: 450px;
+        right: 55vw;
+        top: 60vh;
 
         img {
             width: 60px;
@@ -333,7 +338,7 @@
 
     .add-player-btn {
         right: 8px;
-        top: 70%;
+        top: 53vh;
         width: 40px;
         height: 40px;
     }
@@ -341,5 +346,6 @@
     .info-box {
         width: 96%;
         transform: translateX(2%);
+        bottom: 12vh;
     }
 }

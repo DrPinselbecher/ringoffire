@@ -66,3 +66,20 @@ mat-card {
         }
     }
 }
+
+@media(max-width:430px) {
+
+    mat-card {
+        gap: 0;
+        padding: 10px 10px;
+
+        mat-card-title {
+            font-size: 2.7vh;
+        }
+
+        mat-card-content {
+            font-size: 2.2vh;
+            line-height: 2.3vh;
+        }
+    }
+}
