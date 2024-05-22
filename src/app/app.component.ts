@@ -3,12 +3,12 @@ import { RouterOutlet } from '@angular/router';
 import { BackgroundComponent } from './shared/background/background.component';
 import { StartScreenComponent } from './start-screen/start-screen.component';
 import { CommonModule } from '@angular/common';
-import { LandscapeMassageComponent } from './shared/landscape-massage/landscape-massage.component';
+import { LandscapeMessageComponent } from './shared/landscape-massage/landscape-message.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, BackgroundComponent, StartScreenComponent, CommonModule, LandscapeMassageComponent],
+  imports: [RouterOutlet, BackgroundComponent, StartScreenComponent, CommonModule, LandscapeMessageComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })

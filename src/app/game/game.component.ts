@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Game } from '../../models/game';
 import { PlayerComponent } from '../player/player.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,6 +8,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GameInfoComponent } from '../game-info/game-info.component';
+import { Firestore } from '@angular/fire/firestore';
+import { collection, onSnapshot } from '@firebase/firestore';
 
 
 @Component({
@@ -29,12 +31,33 @@ export class GameComponent {
   currentCard: string | undefined = '';
   currentRotation: number = 0;
 
+  firestore: Firestore = inject(Firestore);
   game: Game;
 
   constructor(public dialog: MatDialog) {
     this.game = new Game();
     this.newGame();
+    this.subGamesList();
+
   }
+
+  subGamesList() {
+    console.log('gamesRef:', this.getGamesRef());
+  }
+
+  getGamesRef() {
+    return collection(this.firestore, 'games');
+  }
+
+  ngonDestroy() {
+
+  }
+
+
+
+
+
+
 
   takeCard() {
     if (this.cardIsClickable()) {
@@ -89,7 +112,6 @@ export class GameComponent {
   newGame() {
     this.clearLocalStorage();
     this.game = new Game();
-    console.log(this.game);
   }
 
   getTransformStyle(): string {

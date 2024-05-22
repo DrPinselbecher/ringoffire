@@ -5,9 +5,9 @@ import { Component } from '@angular/core';
   selector: 'app-landscape-massage',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './landscape-massage.component.html',
-  styleUrl: './landscape-massage.component.scss'
+  templateUrl: './landscape-message.component.html',
+  styleUrl: './landscape-message.component.scss'
 })
-export class LandscapeMassageComponent {
+export class LandscapeMessageComponent {
 
 }
