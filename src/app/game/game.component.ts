@@ -8,8 +8,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GameInfoComponent } from '../game-info/game-info.component';
-import { Firestore } from '@angular/fire/firestore';
+import { Firestore, addDoc, doc } from '@angular/fire/firestore';
 import { collection, onSnapshot } from '@firebase/firestore';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -32,27 +33,48 @@ export class GameComponent {
   currentRotation: number = 0;
 
   firestore: Firestore = inject(Firestore);
+  route: ActivatedRoute = inject(ActivatedRoute);
+  dialog: MatDialog = inject(MatDialog);
   game: Game;
+  docId!: string;
 
-  constructor(public dialog: MatDialog) {
-    this.game = new Game();
+  constructor() {
     this.newGame();
-    this.subGamesList();
-
+    this.game = new Game();
+    this.route.params.subscribe((params) => {
+      this.docId = params["id"];
+    });
+    console.log('the params is', this.docId);
+    // console.log('the single document is', this.getSingleDocRef('games', this.docId));
+    this.subGameList();
   }
 
-  subGamesList() {
-    console.log('gamesRef:', this.getGamesRef());
+  subGameList() {
+    return onSnapshot(this.getGamesRef(), (game) => {
+      console.log(game);
+    });
   }
 
   getGamesRef() {
     return collection(this.firestore, 'games');
   }
 
-  ngonDestroy() {
-
+  getSingleDocRef(callId: string, docId: string) {
+    return doc(collection(this.firestore, callId), docId);
   }
 
+  newGame() {
+    this.clearLocalStorage();
+    // this.addGame(this.game.toJson());
+  }
+
+  async addGame(item: {}) {
+    await addDoc(this.getGamesRef(), item).catch(
+      (err) => { console.error(err) }
+    ).then(
+      (docRef) => { console.log("Document written to notes with ID:", docRef?.id), console.log(item) }
+    );
+  }
 
 
 
@@ -107,11 +129,6 @@ export class GameComponent {
 
   setRandomDegNumber(): number {
     return Math.floor(Math.random() * 180);
-  }
-
-  newGame() {
-    this.clearLocalStorage();
-    this.game = new Game();
   }
 
   getTransformStyle(): string {
