@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GameInfoComponent } from '../game-info/game-info.component';
-import { Firestore, addDoc, doc } from '@angular/fire/firestore';
+import { Firestore, addDoc, doc, getDocs, query, where } from '@angular/fire/firestore';
 import { collection, onSnapshot } from '@firebase/firestore';
 import { ActivatedRoute } from '@angular/router';
 
@@ -41,17 +41,24 @@ export class GameComponent {
   constructor() {
     this.newGame();
     this.game = new Game();
-    this.route.params.subscribe((params) => {
-      this.docId = params["id"];
-    });
-    console.log('the params is', this.docId);
-    // console.log('the single document is', this.getSingleDocRef('games', this.docId));
-    this.subGameList();
+    this.route.params.subscribe((params) => this.docId = params["id"]);
+    this.getDocument();
   }
 
-  subGameList() {
-    return onSnapshot(this.getGamesRef(), (game) => {
-      console.log(game);
+  getDocument() {
+    let q = query(this.getGamesRef(), where('__name__', '==', this.docId));
+    return onSnapshot(q, (list) => {
+      list.forEach(el => {
+        let data = el.data();
+        this.game.players = data["players"],
+          this.game.playerProfileImages = data["playerProfileImages"],
+          this.game.stack = data["stack"],
+          this.game.playedCards = data["playedCards"],
+          this.game.currentPlayer = data["currentPlayer"],
+          this.game.nextPlayer = data["nextPlayer"],
+          this.game.maximalPlayersAllowed = data["maximalPlayersAllowed"]
+        console.log(el.data());
+      });
     });
   }
 
