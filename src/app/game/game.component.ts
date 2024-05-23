@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GameInfoComponent } from '../game-info/game-info.component';
-import { Firestore, addDoc, doc, getDocs, query, where } from '@angular/fire/firestore';
+import { Firestore, addDoc, doc, getDocs, query, updateDoc, where } from '@angular/fire/firestore';
 import { collection, onSnapshot } from '@firebase/firestore';
 import { ActivatedRoute } from '@angular/router';
 
@@ -39,7 +39,6 @@ export class GameComponent {
   docId!: string;
 
   constructor() {
-    this.newGame();
     this.game = new Game();
     this.route.params.subscribe((params) => this.docId = params["id"]);
     this.getDocument();
@@ -47,19 +46,61 @@ export class GameComponent {
 
   getDocument() {
     let q = query(this.getGamesRef(), where('__name__', '==', this.docId));
+
     return onSnapshot(q, (list) => {
       list.forEach(el => {
         let data = el.data();
-        this.game.players = data["players"],
-          this.game.playerProfileImages = data["playerProfileImages"],
-          this.game.stack = data["stack"],
-          this.game.playedCards = data["playedCards"],
-          this.game.currentPlayer = data["currentPlayer"],
-          this.game.nextPlayer = data["nextPlayer"],
-          this.game.maximalPlayersAllowed = data["maximalPlayersAllowed"]
-        console.log(el.data());
+        this.processDocumentData(data);
+        this.checkPlayerNames();
       });
     });
+  }
+
+  processDocumentData(data: any) {
+    this.game.players = data["players"];
+    this.game.playerProfileImages = data["playerProfileImages"];
+    this.game.stack = data["stack"];
+    this.game.playedCards = data["playedCards"];
+    this.game.currentPlayer = data["currentPlayer"];
+    this.game.nextPlayer = data["nextPlayer"];
+    this.game.maximalPlayersAllowed = data["maximalPlayersAllowed"];
+  }
+
+  checkPlayerNames() {
+    if (this.game.players.length >= 1) {
+      this.game.players.forEach(player => {
+        this.clearLocalStorage(player.name);
+      });
+    } else {
+      this.resetLocalStorage();
+    }
+  }
+
+  resetLocalStorage() {
+    let playerName = localStorage.getItem('playerName');
+    if (playerName) {
+      localStorage.removeItem('playerName');
+    }
+  }
+
+  clearLocalStorage(nameInBackend: string) {
+    let playerName = localStorage.getItem('playerName');
+    if (playerName) {
+      let parsedPlayerName = JSON.parse(playerName);
+      if (parsedPlayerName !== nameInBackend) {
+        localStorage.removeItem('playerName');
+      }
+    }
+  }
+
+  async updateGame(item: {}) {
+    let docRef = this.getSingleDocRef('games', this.docId);
+
+    await updateDoc(docRef, item).catch(
+      (err) => { console.error(err) }
+    ).then(
+      (docRef) => { console.log("Update from the server, the docRef is:", docRef) }
+    );
   }
 
   getGamesRef() {
@@ -70,18 +111,7 @@ export class GameComponent {
     return doc(collection(this.firestore, callId), docId);
   }
 
-  newGame() {
-    this.clearLocalStorage();
-    // this.addGame(this.game.toJson());
-  }
 
-  async addGame(item: {}) {
-    await addDoc(this.getGamesRef(), item).catch(
-      (err) => { console.error(err) }
-    ).then(
-      (docRef) => { console.log("Document written to notes with ID:", docRef?.id), console.log(item) }
-    );
-  }
 
 
 
@@ -142,23 +172,18 @@ export class GameComponent {
     return `scale(1) translateX(284px) translateY(-11px) rotate(${this.currentRotation}deg)`;
   }
 
-  setPlayer(name: string) {
+  async setPlayer(name: string) {
     let image = this.game.playerProfileImages.pop();
     if (image !== undefined) {
       this.game.players.push({ name: name, image: image });
       this.updateNextPlayerIfNeeded();
       this.savePlayerToLocalStorage(name);
+      await this.updateGame(this.game.toJson());
     }
   }
 
   savePlayerToLocalStorage(name: string) {
     localStorage.setItem('playerName', JSON.stringify(name));
-  }
-
-  clearLocalStorage() {
-    if (localStorage.getItem('playerName')) {
-      localStorage.removeItem('playerName');
-    }
   }
 
   updateNextPlayerIfNeeded() {
