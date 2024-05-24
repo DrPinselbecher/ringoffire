@@ -12,8 +12,8 @@
                 [ngStyle]="{'transform': 'scale(1) translateX(284px) translateY(-11px) rotate(' + card.rotation + 'deg)'}"
                 src="assets/img/cards/{{ card.name }}.png" alt="card image">
 
-            <img *ngIf="pickCardAnimation" [ngStyle]="{'transform': getTransformStyle()}" class="pick-card"
-                src="assets/img/cards/{{ currentCard }}.png">
+            <img *ngIf="game.pickCardAnimation" [ngStyle]="{'transform': getTransformStyle()}" class="pick-card"
+                src="assets/img/cards/{{ game.currentCard }}.png">
 
             <button (click)="restartGame()" *ngIf="game.stack.length === 0" mat-fab color="primary"
                 class="restart-game-btn box-shadow">
@@ -30,7 +30,7 @@
         <img [ngClass]="{'safari-size': isSafariBrowserOnSmartphone()}" (click)="switchLanguage('en')"
             class="language-image box-shadow" *ngIf="game.language === 'de'" src="assets/img/languages/de_image.png"
             alt="de_language_flag_img">
-        <app-game-info [ngClass]="{'safari-size': isSafariBrowserOnSmartphone()}" *ngIf="currentCard"
-            [card]="currentCard" [game]="game" class="info-box"></app-game-info>
+        <app-game-info [ngClass]="{'safari-size': isSafariBrowserOnSmartphone()}" *ngIf="game.currentCard"
+            [card]="game.currentCard" [game]="game" class="info-box"></app-game-info>
     </div>
 </div>

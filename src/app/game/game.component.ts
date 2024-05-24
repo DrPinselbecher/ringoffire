@@ -28,10 +28,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./game.component.scss']
 })
 export class GameComponent {
-  pickCardAnimation: boolean = false;
-  currentCard: string | undefined = '';
-  currentRotation: number = 0;
-
   firestore: Firestore = inject(Firestore);
   route: ActivatedRoute = inject(ActivatedRoute);
   dialog: MatDialog = inject(MatDialog);
@@ -64,6 +60,9 @@ export class GameComponent {
     this.game.currentPlayer = data["currentPlayer"];
     this.game.nextPlayer = data["nextPlayer"];
     this.game.maximalPlayersAllowed = data["maximalPlayersAllowed"];
+    this.game.pickCardAnimation = data["pickCardAnimation"];
+    this.game.currentCard = data["currentCard"];
+    this.game.currentRotation = data["currentRotation"];
   }
 
   checkPlayerNames() {
@@ -93,10 +92,11 @@ export class GameComponent {
     }
   }
 
-  async updateGame(item: {}) {
+  async updateGame() {
     let docRef = this.getSingleDocRef('games', this.docId);
+    let newGame = this.game.toJson();
 
-    await updateDoc(docRef, item).catch(
+    await updateDoc(docRef, newGame).catch(
       (err) => { console.error(err) }
     ).then(
       (docRef) => { console.log("Update from the server, the docRef is:", docRef) }
@@ -111,57 +111,56 @@ export class GameComponent {
     return doc(collection(this.firestore, callId), docId);
   }
 
-
-
-
-
-
-
-
-  takeCard() {
+  async takeCard() {
     if (this.cardIsClickable()) {
-
-      this.moveCardToTable();
-      this.showCurrentPlayer();
-      this.showNextPlayer();
+      await this.moveCardToTable();
+      await this.showCurrentPlayer();
+      await this.showNextPlayer();
     }
   }
 
-  showCurrentPlayer() {
+  async showCurrentPlayer() {
     if (this.game.currentPlayer < this.game.players.length - 1) {
       this.game.currentPlayer++;
+      await this.updateGame();
     } else {
       this.game.currentPlayer = 0;
+      await this.updateGame();
     }
   }
 
-  showNextPlayer() {
+  async showNextPlayer() {
     if (this.game.nextPlayer < this.game.players.length - 1) {
       this.game.nextPlayer++;
+      await this.updateGame();
     } else {
       this.game.nextPlayer = 0;
+      await this.updateGame();
     }
   }
 
-  moveCardToTable() {
-    this.pickCardAnimation = true;
-    this.currentCard = this.game.stack.pop();
-    this.currentRotation = Math.random() * 360;
+  async moveCardToTable() {
+    this.game.pickCardAnimation = true;
+    this.game.currentCard = this.game.stack.pop();
+    this.game.currentRotation = Math.random() * 360;
+    await this.updateGame();
 
     setTimeout(() => {
-      if (this.currentCard) {
-        this.setPlayedCard(this.currentCard, this.currentRotation);
+      if (this.game.currentCard) {
+        this.setPlayedCard(this.game.currentCard, this.game.currentRotation);
+        this.updateGame();
       }
     }, 1000);
   }
 
   cardIsClickable() {
-    return !this.pickCardAnimation && this.game.stack.length > 0 && this.game.players.length >= 2;
+    return !this.game.pickCardAnimation && this.game.stack.length > 0 && this.game.players.length >= 2;
   }
 
-  setPlayedCard(card: string, rotation: number) {
+  async setPlayedCard(card: string, rotation: number) {
     this.game.playedCards.push({ name: card, rotation: rotation });
-    this.pickCardAnimation = false;
+    this.game.pickCardAnimation = false;
+    await this.updateGame();
   }
 
   setRandomDegNumber(): number {
@@ -169,7 +168,7 @@ export class GameComponent {
   }
 
   getTransformStyle(): string {
-    return `scale(1) translateX(284px) translateY(-11px) rotate(${this.currentRotation}deg)`;
+    return `scale(1) translateX(284px) translateY(-11px) rotate(${this.game.currentRotation}deg)`;
   }
 
   async setPlayer(name: string) {
@@ -178,7 +177,7 @@ export class GameComponent {
       this.game.players.push({ name: name, image: image });
       this.updateNextPlayerIfNeeded();
       this.savePlayerToLocalStorage(name);
-      await this.updateGame(this.game.toJson());
+      await this.updateGame();
     }
   }
 
@@ -226,7 +225,7 @@ export class GameComponent {
   restartGame() {
     this.game.playedCards = [];
     this.game.setCards();
-    this.currentCard = undefined;
+    this.game.currentCard = undefined;
   }
 
   isSafariBrowserOnSmartphone() {

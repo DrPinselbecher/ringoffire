@@ -1,10 +1,21 @@
 export class Game {
-    public players: { name: string, image: string }[] = [];
+    public players: { name: string, image: string }[] = [{
+        name: 'Maximilian',
+        image: 'Maximilian'
+    },
+    {
+        name: 'Maximilian',
+        image: 'Maximilian'
+    }];
     public playerProfileImages: string[] = [];
     public stack: string[] = [];
     public playedCards: { name: string, rotation: number }[] = [];
     public currentPlayer: number = -1;
     public nextPlayer: number = 0;
+    public pickCardAnimation: boolean = false;
+    public currentCard: string | undefined = '';
+    public currentRotation: number = 0;
+
     public maximalPlayersAllowed: number = 9;
     public language: "en" | "de" = "en";
 
@@ -22,7 +33,10 @@ export class Game {
             playedCards: this.playedCards,
             currentPlayer: this.currentPlayer,
             nextPlayer: this.nextPlayer,
-            maximalPlayersAllowed: this.maximalPlayersAllowed
+            maximalPlayersAllowed: this.maximalPlayersAllowed,
+            pickCardAnimation: this.pickCardAnimation,
+            currentCard: this.currentCard,
+            currentRotation: this.currentRotation
         };
     }
 
