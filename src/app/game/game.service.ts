@@ -1,0 +1,87 @@
+import { Injectable, inject } from '@angular/core';
+import { Firestore, collection, doc, onSnapshot, query, updateDoc, where } from '@angular/fire/firestore';
+import { Game } from '../../models/game';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class GameService {
+  game: Game;
+  firestore: Firestore = inject(Firestore);
+  docId!: string;
+
+  constructor() {
+    this.game = new Game();
+  }
+
+  getDocument() {
+    let q = query(this.getGamesRef(), where('__name__', '==', this.docId));
+
+    return onSnapshot(q, (list) => {
+      list.forEach(el => {
+        let data = el.data();
+        this.processDocumentData(data);
+        this.checkPlayerNames();
+      });
+    });
+  }
+
+  processDocumentData(data: any) {
+    this.game.players = data["players"];
+    this.game.playerProfileImages = data["playerProfileImages"];
+    this.game.stack = data["stack"];
+    this.game.playedCards = data["playedCards"];
+    this.game.currentPlayer = data["currentPlayer"];
+    this.game.nextPlayer = data["nextPlayer"];
+    this.game.maximalPlayersAllowed = data["maximalPlayersAllowed"];
+    this.game.pickCardAnimation = data["pickCardAnimation"];
+    this.game.currentCard = data["currentCard"];
+    this.game.currentRotation = data["currentRotation"];
+  }
+
+  checkPlayerNames() {
+    if (this.game.players.length >= 1) {
+      this.game.players.forEach(player => {
+        this.clearLocalStorage(player.name);
+      });
+    } else {
+      this.resetLocalStorage();
+    }
+  }
+
+  clearLocalStorage(nameInBackend: string) {
+    let playerName = localStorage.getItem('playerName');
+    if (playerName) {
+      let parsedPlayerName = JSON.parse(playerName);
+      if (parsedPlayerName !== nameInBackend) {
+        localStorage.removeItem('playerName');
+      }
+    }
+  }
+
+  resetLocalStorage() {
+    let playerName = localStorage.getItem('playerName');
+    if (playerName) {
+      localStorage.removeItem('playerName');
+    }
+  }
+
+  getGamesRef() {
+    return collection(this.firestore, 'games');
+  }
+
+  getSingleDocRef(callId: string, docId: string) {
+    return doc(collection(this.firestore, callId), docId);
+  }
+
+  async updateGame() {
+    let docRef = this.getSingleDocRef('games', this.docId);
+    let newGame = this.game.toJson();
+
+    await updateDoc(docRef, newGame).catch((err) => {
+      console.error(err);
+    }).then(() => {
+      console.log('Update from the server, the docRef is:', docRef.id);
+    });
+  }
+}

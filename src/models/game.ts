@@ -1,11 +1,10 @@
 export class Game {
     public players: { name: string, image: string }[] = [{
-        name: 'Maximilian',
-        image: 'Maximilian'
-    },
-    {
-        name: 'Maximilian',
-        image: 'Maximilian'
+        name: 'alberto',
+        image: 'player_profile_3'
+    }, {
+        name: 'albaserto',
+        image: 'player_profile_1'
     }];
     public playerProfileImages: string[] = [];
     public stack: string[] = [];

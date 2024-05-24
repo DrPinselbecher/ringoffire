@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { Game } from '../../models/game';
+import { GameService } from '../game/game.service';
 
 @Component({
   selector: 'app-game-info',
@@ -47,6 +48,8 @@ export class GameInfoComponent {
   @Input() game!: Game;
   @Input() card: string | undefined;
 
+  gameService: GameService = inject(GameService);
+
   title: string = '';
   description: string = '';
 
@@ -56,6 +59,7 @@ export class GameInfoComponent {
       let cardNumber = +this.card.split('_')[1];
       this.title = this.cardActions[this.game.language][cardNumber - 1].title;
       this.description = this.cardActions[this.game.language][cardNumber - 1].description;
+      this.gameService.updateGame();
     }
   }
 }
