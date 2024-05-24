@@ -43,17 +43,21 @@ export class GameComponent {
 
   async takeCard() {
     let storagePlayerName = localStorage.getItem('playerName');
-    if (this.game.players[this.game.currentPlayer].name === storagePlayerName) {
-      if (this.cardIsClickable()) {
-        await this.moveCardToTable();
-        await this.showCurrentPlayer();
-        await this.showNextPlayer();
+    if (storagePlayerName) {
+      let parsedPlayerName = JSON.parse(storagePlayerName);
+      if (this.gameService.game.currentPlayer === parsedPlayerName) {
+        if (this.cardIsClickable()) {
+          await this.moveCardToTable();
+          await this.showCurrentPlayer();
+          await this.showNextPlayer();
+          await this.gameService.updateGame();
+        }
+      } else {
+        console.warn("Not your move");
       }
-    } else {
-      console.warn("not your move");
     }
-    this.gameService.updateGame();
   }
+
 
   async showCurrentPlayer() {
     if (this.game.currentPlayer < this.game.players.length - 1) {
