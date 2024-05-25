@@ -173,6 +173,7 @@ export class GameComponent {
     this.game.playedCards = [];
     this.game.setCards();
     this.game.currentCard = undefined;
+    this.gameService.updateGame();
   }
 
   isSafariBrowserOnSmartphone() {
