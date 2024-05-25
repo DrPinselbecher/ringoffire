@@ -8,8 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogAddPlayerComponent } from '../dialog-add-player/dialog-add-player.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GameInfoComponent } from '../game-info/game-info.component';
-import { Firestore, doc, query, updateDoc, where } from '@angular/fire/firestore';
-import { collection, onSnapshot } from '@firebase/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { GameService } from './game.service';
 
@@ -34,30 +33,39 @@ export class GameComponent {
   dialog: MatDialog = inject(MatDialog);
   game: Game;
   gameService: GameService = inject(GameService);
+  firstPick: boolean = false;
 
   constructor() {
-    this.game = this.gameService.game;
     this.route.params.subscribe((params) => this.gameService.docId = params["id"]);
     this.gameService.getDocument();
+    this.game = this.gameService.game;
   }
 
   async takeCard() {
-    let storagePlayerName = localStorage.getItem('playerName');
-    if (storagePlayerName) {
-      let parsedPlayerName = JSON.parse(storagePlayerName);
-      if (this.gameService.game.currentPlayer === parsedPlayerName) {
+    let playerName = localStorage.getItem('playerName');
+    if (playerName) {
+      let parsedPlayerName = JSON.parse(playerName);
+      if (parsedPlayerName === this.game.players[0].name && !this.firstPick) {
         if (this.cardIsClickable()) {
           await this.moveCardToTable();
           await this.showCurrentPlayer();
           await this.showNextPlayer();
           await this.gameService.updateGame();
+          this.firstPick = true;
         }
       } else {
-        console.warn("Not your move");
+        if (parsedPlayerName === this.game.players[this.game.nextPlayer].name) {
+          if (this.cardIsClickable()) {
+            await this.moveCardToTable();
+            await this.showCurrentPlayer();
+            await this.showNextPlayer();
+            await this.gameService.updateGame();
+          }
+        }
       }
     }
+    console.log(this.game.players[this.game.nextPlayer].name);
   }
-
 
   async showCurrentPlayer() {
     if (this.game.currentPlayer < this.game.players.length - 1) {
@@ -116,8 +124,8 @@ export class GameComponent {
     if (image !== undefined) {
       this.game.players.push({ name: name, image: image });
       this.updateNextPlayerIfNeeded();
-      this.savePlayerToLocalStorage(name);
       await this.gameService.updateGame();
+      this.savePlayerToLocalStorage(name);
     }
   }
 
@@ -125,11 +133,13 @@ export class GameComponent {
     localStorage.setItem('playerName', JSON.stringify(name));
   }
 
-  updateNextPlayerIfNeeded() {
+  async updateNextPlayerIfNeeded() {
     if (this.game.currentPlayer === this.game.players.length - 1) {
       this.game.nextPlayer = this.game.currentPlayer - 1;
+      await this.gameService.updateGame();
     } else {
       this.game.nextPlayer = this.game.currentPlayer + 1;
+      await this.gameService.updateGame();
     }
   }
 

@@ -21,7 +21,7 @@ export class GameService {
       list.forEach(el => {
         let data = el.data();
         this.processDocumentData(data);
-        this.checkPlayerNames();
+        this.checkLocalStorageIfPlayerExist();
       });
     });
   }
@@ -37,19 +37,20 @@ export class GameService {
     this.game.pickCardAnimation = data["pickCardAnimation"];
     this.game.currentCard = data["currentCard"];
     this.game.currentRotation = data["currentRotation"];
+    this.game.invLinkCopied = data["invLinkCopied"];
   }
 
-  checkPlayerNames() {
-    if (this.game.players.length >= 1) {
-      this.game.players.forEach(player => {
-        this.clearLocalStorage(player.name);
-      });
-    } else {
-      this.resetLocalStorage();
+  checkLocalStorageIfPlayerExist() {
+    let playerName = localStorage.getItem('playerName');
+    if (playerName) {
+      let parsedPlayerName = JSON.parse(playerName);
+      if (!this.game.players.find(player => player.name === parsedPlayerName)) {
+        this.clearLocalStorage();
+      }
     }
   }
 
-  clearLocalStorage(nameInBackend: string) {
+  sclearLocalStorage(nameInBackend: string) {
     let playerName = localStorage.getItem('playerName');
     if (playerName) {
       let parsedPlayerName = JSON.parse(playerName);
@@ -59,7 +60,7 @@ export class GameService {
     }
   }
 
-  resetLocalStorage() {
+  clearLocalStorage() {
     let playerName = localStorage.getItem('playerName');
     if (playerName) {
       localStorage.removeItem('playerName');

@@ -8,6 +8,7 @@ export class Game {
     public pickCardAnimation: boolean = false;
     public currentCard: string | undefined = '';
     public currentRotation: number = 0;
+    public invLinkCopied: boolean = false;
 
     public maximalPlayersAllowed: number = 9;
     public language: "en" | "de" = "en";
@@ -29,7 +30,8 @@ export class Game {
             maximalPlayersAllowed: this.maximalPlayersAllowed,
             pickCardAnimation: this.pickCardAnimation,
             currentCard: this.currentCard,
-            currentRotation: this.currentRotation
+            currentRotation: this.currentRotation,
+            invLinkCopied: this.invLinkCopied
         };
     }
 
