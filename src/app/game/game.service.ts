@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Firestore, collection, doc, onSnapshot, query, updateDoc, where } from '@angular/fire/firestore';
+import { Firestore, collection, deleteDoc, doc, onSnapshot, query, updateDoc, where } from '@angular/fire/firestore';
 import { Game } from '../../models/game';
 
 @Injectable({
@@ -23,6 +23,7 @@ export class GameService {
         this.processDocumentData(data);
         this.checkLocalStorageIfPlayerExist();
       });
+      this.deleteLobbyIn10Hours(this.docId);
     });
   }
 
@@ -38,6 +39,13 @@ export class GameService {
     this.game.currentCard = data["currentCard"];
     this.game.currentRotation = data["currentRotation"];
     this.game.invLinkCopied = data["invLinkCopied"];
+  }
+
+  async deleteLobbyIn10Hours(docId: string) {
+    setTimeout(async () => {
+      let docRef = doc(this.firestore, 'games', docId);
+      await deleteDoc(docRef);
+    }, 10 * 60 * 60 * 1000);
   }
 
   checkLocalStorageIfPlayerExist() {
