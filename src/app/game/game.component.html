@@ -30,8 +30,8 @@
         <img [ngClass]="{'safari-size': isSafariBrowserOnSmartphone()}" (click)="switchLanguage('en')"
             class="language-image box-shadow" *ngIf="game.language === 'de'" src="assets/img/languages/de_image.png"
             alt="de_language_flag_img">
-        <app-game-info [ngClass]="{'safari-size': isSafariBrowserOnSmartphone()}" *ngIf="game.currentCard"
-            [card]="game.currentCard" [game]="game" class="info-box"></app-game-info>
+        <app-game-info [ngClass]="{'safari-size': isSafariBrowserOnSmartphone() || isSamsungBrowser()}"
+            *ngIf="game.currentCard" [card]="game.currentCard" [game]="game" class="info-box"></app-game-info>
     </div>
 </div>
 <app-copie-link-card *ngIf="!game.invLinkCopied"></app-copie-link-card>

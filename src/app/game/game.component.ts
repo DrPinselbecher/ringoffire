@@ -49,56 +49,53 @@ export class GameComponent {
       let parsedPlayerName = JSON.parse(playerName);
       if (parsedPlayerName === this.game.players[0].name && !this.firstPick) {
         if (this.cardIsClickable()) {
-          await this.moveCardToTable();
-          await this.showCurrentPlayer();
-          await this.showNextPlayer();
+          this.showCurrentPlayer();
+          await this.gameService.updateGame();
+          this.showNextPlayer();
+          await this.gameService.updateGame();
+          this.moveCardToTable();
           await this.gameService.updateGame();
           this.firstPick = true;
         }
       } else {
         if (parsedPlayerName === this.game.players[this.game.nextPlayer].name) {
           if (this.cardIsClickable()) {
-            await this.moveCardToTable();
-            await this.showCurrentPlayer();
-            await this.showNextPlayer();
+            this.showCurrentPlayer();
+            await this.gameService.updateGame();
+            this.showNextPlayer();
+            await this.gameService.updateGame();
+            this.moveCardToTable();
             await this.gameService.updateGame();
           }
         }
       }
     }
-    console.log(this.game.players[this.game.nextPlayer].name);
   }
 
-  async showCurrentPlayer() {
+  showCurrentPlayer() {
     if (this.game.currentPlayer < this.game.players.length - 1) {
       this.game.currentPlayer++;
-      await this.gameService.updateGame();
     } else {
       this.game.currentPlayer = 0;
-      await this.gameService.updateGame();
     }
   }
 
-  async showNextPlayer() {
+  showNextPlayer() {
     if (this.game.nextPlayer < this.game.players.length - 1) {
       this.game.nextPlayer++;
-      await this.gameService.updateGame();
     } else {
       this.game.nextPlayer = 0;
-      await this.gameService.updateGame();
     }
   }
 
-  async moveCardToTable() {
+  moveCardToTable() {
     this.game.pickCardAnimation = true;
     this.game.currentCard = this.game.stack.pop();
     this.game.currentRotation = Math.random() * 360;
-    await this.gameService.updateGame();
 
     setTimeout(() => {
       if (this.game.currentCard) {
         this.setPlayedCard(this.game.currentCard, this.game.currentRotation);
-        this.gameService.updateGame();
       }
     }, 1000);
   }
@@ -135,13 +132,11 @@ export class GameComponent {
     localStorage.setItem('playerName', JSON.stringify(name));
   }
 
-  async updateNextPlayerIfNeeded() {
+  updateNextPlayerIfNeeded() {
     if (this.game.currentPlayer === this.game.players.length - 1) {
       this.game.nextPlayer = this.game.currentPlayer - 1;
-      await this.gameService.updateGame();
     } else {
       this.game.nextPlayer = this.game.currentPlayer + 1;
-      await this.gameService.updateGame();
     }
   }
 
@@ -187,5 +182,10 @@ export class GameComponent {
     let isMobile = /iPhone|iPod/i.test(userAgent);
 
     return isSafari && isMobile;
+  }
+
+  isSamsungBrowser(): boolean {
+    let userAgent = navigator.userAgent;
+    return /SamsungBrowser/i.test(userAgent) && /Android/i.test(userAgent);
   }
 }
