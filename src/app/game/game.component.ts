@@ -11,6 +11,7 @@ import { GameInfoComponent } from '../game-info/game-info.component';
 import { Firestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
 import { GameService } from './game.service';
+import { CopieLinkCardComponent } from '../inv-link-copie-popup/copie-link-card/copie-link-card.component';
 
 
 @Component({
@@ -22,7 +23,8 @@ import { GameService } from './game.service';
     MatIconModule,
     MatButtonModule,
     MatDialogModule,
-    GameInfoComponent
+    GameInfoComponent,
+    CopieLinkCardComponent
   ],
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss']
@@ -37,8 +39,8 @@ export class GameComponent {
 
   constructor() {
     this.route.params.subscribe((params) => this.gameService.docId = params["id"]);
-    this.gameService.getDocument();
     this.game = this.gameService.game;
+    this.gameService.getDocument();
   }
 
   async takeCard() {
