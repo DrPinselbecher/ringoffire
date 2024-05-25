@@ -169,11 +169,11 @@ export class GameComponent {
     this.game.language = language;
   }
 
-  restartGame() {
+  async restartGame() {
     this.game.playedCards = [];
     this.game.setCards();
-    this.game.currentCard = undefined;
-    this.gameService.updateGame();
+    this.game.currentCard = '';
+    await this.gameService.updateGame();
   }
 
   isSafariBrowserOnSmartphone() {
