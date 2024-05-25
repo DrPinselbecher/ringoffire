@@ -44,31 +44,38 @@ export class GameComponent {
   }
 
   async takeCard() {
-    let playerName = localStorage.getItem('playerName');
-    if (playerName) {
-      let parsedPlayerName = JSON.parse(playerName);
-      if (parsedPlayerName === this.game.players[0].name && !this.firstPick) {
-        if (this.cardIsClickable()) {
-          this.showCurrentPlayer();
-          await this.gameService.updateGame();
-          this.showNextPlayer();
-          await this.gameService.updateGame();
-          this.moveCardToTable();
-          await this.gameService.updateGame();
-          this.firstPick = true;
-        }
-      } else {
-        if (parsedPlayerName === this.game.players[this.game.nextPlayer].name) {
-          if (this.cardIsClickable()) {
-            this.showCurrentPlayer();
-            await this.gameService.updateGame();
-            this.showNextPlayer();
-            await this.gameService.updateGame();
-            this.moveCardToTable();
-            await this.gameService.updateGame();
-          }
-        }
-      }
+    // let playerName = localStorage.getItem('playerName');
+    // if (playerName) {
+    //   let parsedPlayerName = JSON.parse(playerName);
+    //   if (this.isFirstPickFromFirstPlayer(parsedPlayerName)) {
+    //     await this.playGameProcessIfIsCardClickable();
+    //     this.firstPick = true;
+    //   } else {
+    //     if (this.itChoosesTheNextPlayer(parsedPlayerName)) {
+    //       await this.playGameProcessIfIsCardClickable();
+    //     }
+    //   }
+    // }
+
+    this.playGameProcessIfIsCardClickable();
+  }
+
+  isFirstPickFromFirstPlayer(localName: string) {
+    return localName === this.game.players[0].name && !this.firstPick;
+  }
+
+  itChoosesTheNextPlayer(localName: string) {
+    return localName === this.game.players[this.game.nextPlayer].name;
+  }
+
+  async playGameProcessIfIsCardClickable() {
+    if (this.cardIsClickable()) {
+      this.showCurrentPlayer();
+      await this.gameService.updateGame();
+      this.showNextPlayer();
+      await this.gameService.updateGame();
+      this.moveCardToTable();
+      await this.gameService.updateGame();
     }
   }
 
@@ -119,6 +126,10 @@ export class GameComponent {
   }
 
   async setPlayer(name: string) {
+    if (this.game.currentPlayer === this.game.players.length) {
+      this.game.currentPlayer = -1;
+      this.game.nextPlayer = 0;
+    }
     let image = this.game.playerProfileImages.pop();
     if (image !== undefined) {
       this.game.players.push({ name: name, image: image });
@@ -133,11 +144,19 @@ export class GameComponent {
   }
 
   updateNextPlayerIfNeeded() {
-    if (this.game.currentPlayer === this.game.players.length - 1) {
-      this.game.nextPlayer = this.game.currentPlayer - 1;
+    if (this.currentPlayerIsLastPlayerInTheRow()) {
+      this.setNewPlayerToNextPlayer();
     } else {
       this.game.nextPlayer = this.game.currentPlayer + 1;
     }
+  }
+
+  currentPlayerIsLastPlayerInTheRow() {
+    return this.game.currentPlayer === this.game.players.length - 1;
+  }
+
+  setNewPlayerToNextPlayer() {
+    return this.game.nextPlayer = this.game.currentPlayer - 1;
   }
 
   openDialog(): void {
@@ -150,9 +169,7 @@ export class GameComponent {
     });
 
     dialogRef.afterClosed().subscribe((name) => {
-      if (name) {
-        this.setPlayer(name);
-      }
+      if (name) this.setPlayer(name);
     });
   }
 
