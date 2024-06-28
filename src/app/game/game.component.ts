@@ -44,19 +44,22 @@ export class GameComponent {
   }
 
   async takeCard() {
-    // let playerName = localStorage.getItem('playerName');
-    // if (playerName) {
-    //   let parsedPlayerName = JSON.parse(playerName);
-    //   if (this.isFirstPickFromFirstPlayer(parsedPlayerName)) {
-    //     await this.playGameProcessIfIsCardClickable();
-    //     this.firstPick = true;
-    //   } else {
-    //     if (this.itChoosesTheNextPlayer(parsedPlayerName)) {
-    //       await this.playGameProcessIfIsCardClickable();
-    //     }
-    //   }
-    // }
-
+    let playerName = localStorage.getItem('playerName');
+    if (playerName) {
+      let parsedPlayerName = JSON.parse(playerName);
+      if (this.isFirstPickFromFirstPlayer(parsedPlayerName)) {
+        await this.playGameProcessIfIsCardClickable();
+        this.firstPick = true;
+      } else {
+        if (this.itChoosesTheNextPlayer(parsedPlayerName)) {
+          await this.playGameProcessIfIsCardClickable();
+        } else {
+          return;
+        }
+      }
+    } else {
+      return
+    }
     this.playGameProcessIfIsCardClickable();
   }
 
