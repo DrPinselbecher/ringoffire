@@ -1,5 +1,38 @@
 export class Game {
-    public players: { name: string, image: string }[] = [];
+    public players: { name: string, image: string }[] = [
+        {
+            name: 'DrPinselbecher',
+            image: 'player_profile_5'
+        },
+        {
+            name: 'Zer0',
+            image: 'player_profile_6'
+        },
+        {
+            name: 'Schneeflocke',
+            image: 'player_profile_4'
+        },
+        {
+            name: 'HookToHell',
+            image: 'player_profile_3'
+        },
+        {
+            name: 'BuzzelBiber',
+            image: 'player_profile_1'
+        },
+        {
+            name: 'Messefarm',
+            image: 'player_profile_9'
+        },
+        {
+            name: 'Joshi',
+            image: 'player_profile_7'
+        },
+        {
+            name: 'GinForTheWin',
+            image: 'player_profile_2'
+        }
+    ];
     public playerProfileImages: string[] = [];
     public stack: string[] = [];
     public playedCards: { name: string, rotation: number }[] = [];

@@ -15,7 +15,7 @@ mat-card {
     @include dflex($jc: space-evenly, $ai: center);
     transition: all 2s ease-in-out;
 
-    span {
+    span:nth-child(1) {
         @include fStyle($fs: 1.8vw, $fw: 900);
 
         @media (max-width:1100px) {
@@ -28,6 +28,24 @@ mat-card {
 
         @media (max-width:320px) {
             font-size: 16px;
+            max-width: 90vw;
+            text-align: center;
+        }
+    }
+
+    span:nth-child(2) {
+        @include fStyle($fs: 1.6vw, $fw: 900);
+
+        @media (max-width:1100px) {
+            font-size: 24px;
+        }
+
+        @media (max-width:740px) {
+            font-size: 16px;
+        }
+
+        @media (max-width:320px) {
+            font-size: 14px;
             max-width: 90vw;
             text-align: center;
         }
